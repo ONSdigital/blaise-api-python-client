@@ -11,3 +11,8 @@ def client():
 @pytest.fixture
 def server_park():
     return "gusty"
+
+
+@pytest.fixture
+def instrument_name():
+    return "OPN2101A"
