@@ -197,3 +197,25 @@ def api_instrument_stub_response() -> Dict[str, Any]:
                 }
             ]
         }
+
+
+def api_instrument_data_response() -> Dict[str, Any]:
+    return {
+        "instrumentName": "DST2106Z",
+        "instrumentId": "12345-12345-12345-12345-12345",
+        "reportingData": [
+            {
+                "qiD.Serial_Number": "10010",
+                "qhAdmin.HOut": "110"
+            },
+            {
+                "qiD.Serial_Number": "10020",
+                "qhAdmin.HOut": "110"
+            },
+            {
+                "qiD.Serial_Number": "10030",
+                "qhAdmin.HOut": "110"
+
+            }
+        ]
+    }

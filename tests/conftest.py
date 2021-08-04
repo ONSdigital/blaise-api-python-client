@@ -21,3 +21,11 @@ def instrument_name():
 @pytest.fixture
 def instrument_id():
     return "12345-12345-12345-12345-YYYYY"
+
+
+@pytest.fixture
+def data_fields():
+    return [
+        "QID.Serial_Number",
+        "QHAdmin.HOut"
+    ]
