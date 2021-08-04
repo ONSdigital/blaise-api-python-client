@@ -1,4 +1,4 @@
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Union
 
 import requests
 
@@ -33,7 +33,7 @@ class Client(object):
         response = requests.get(f"{self.restapi_url}/api/v1/serverparks/{server_park}/instruments/{instrument_name}/exists")
         return response.json()
 
-    def get_instrument_name_from_id(self, server_park: str, instrument_id: str) -> str:
+    def get_instrument_name_from_id(self, server_park: str, instrument_id: str) -> Union[Any, None, str]:
         response = requests.get(f"{self.restapi_url}/api/v1/serverparks/{server_park}/instruments")
         instrument_list = response.json()
         return get_instrument_name_from_id(instrument_id, instrument_list)
