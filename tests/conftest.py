@@ -15,4 +15,9 @@ def server_park():
 
 @pytest.fixture
 def instrument_name():
-    return "OPN2101A"
+    return "DST2106Y"
+
+
+@pytest.fixture
+def instrument_id():
+    return "12345-12345-12345-12345-YYYYY"
