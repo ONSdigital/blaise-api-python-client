@@ -1,4 +1,7 @@
-def api_instruments_with_cati_data_stub_response():
+from typing import Any, Dict, List
+
+
+def api_instruments_with_cati_data_stub_response() -> List[Dict[str, Any]]:
     return [
         {
             "name": "DST2106X",
@@ -63,7 +66,7 @@ def api_instruments_with_cati_data_stub_response():
     ]
 
 
-def api_instrument_with_cati_data_stub_response():
+def api_instrument_with_cati_data_stub_response() -> Dict[str, Any]:
     return {
             "name": "DST2106X",
             "id": "12345-12345-12345-12345-XXXXX",
@@ -96,7 +99,7 @@ def api_instrument_with_cati_data_stub_response():
         }
 
 
-def api_instruments_stub_response():
+def api_instruments_stub_response() -> List[Dict[str, Any]]:
     return [
         {
             "name": "DST2106X",
@@ -170,7 +173,7 @@ def api_instruments_stub_response():
     ]
 
 
-def api_instrument_stub_response():
+def api_instrument_stub_response() -> Dict[str, Any]:
     return {
             "name": "DST2106X",
             "id": "12345-12345-12345-12345-XXXXX",

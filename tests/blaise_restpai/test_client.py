@@ -58,7 +58,7 @@ def test_get_instrument_for_server_park(client, server_park, instrument_name):
         f"http://localhost/api/v1/serverparks/{server_park}/instruments/{instrument_name}",
         json=api_instrument_stub_response())
 
-    result = client.get_instruments_for_server_park(server_park, instrument_name)
+    result = client.get_instrument_for_server_park(server_park, instrument_name)
     assert result == api_instrument_stub_response()
 
 
