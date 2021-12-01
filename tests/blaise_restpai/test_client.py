@@ -2,7 +2,7 @@ import responses
 
 from blaise_restapi.stubs.instrument_stubs import api_instruments_with_cati_data_stub_response, \
     api_instruments_stub_response, api_instrument_stub_response, api_instrument_with_cati_data_stub_response, \
-    api_instrument_data_response
+    api_instrument_data_response, api_install_instrument_response, api_create_case_response
 
 
 @responses.activate
@@ -105,3 +105,50 @@ def test_get_instrument_data(client, server_park, instrument_name, data_fields):
 
     result = client.get_instrument_data(server_park, instrument_name, data_fields)
     assert result == api_instrument_data_response()
+
+
+@responses.activate
+def test_install_instrument(client, server_park, instrument_file):
+    responses.add(
+        responses.POST,
+        f"http://localhost/api/v1/serverparks/{server_park}/instruments",
+        json=api_install_instrument_response())
+
+    result = client.install_instrument(server_park, instrument_file)
+    assert result == api_install_instrument_response()
+
+
+@responses.activate
+def test_delete_instrument(client, server_park, instrument_name):
+    responses.add(
+        responses.DELETE,
+        f"http://localhost/api/v1/serverparks/{server_park}/instruments/{instrument_name}",
+        json={})
+
+    result = client.delete_instrument(server_park, instrument_name)
+    assert result == {}
+
+
+@responses.activate
+def test_create_case(client, server_park, instrument_name, case_id, field_data):
+    responses.add(
+        responses.POST,
+        f"http://localhost/api/v1/serverparks/{server_park}/instruments/{instrument_name}/cases/{case_id}",
+        json=api_create_case_response())
+
+    result = client.create_case(server_park, instrument_name, case_id, field_data)
+    assert result == api_create_case_response()
+
+
+@responses.activate
+def test_delete_case(client, server_park, instrument_name, case_id):
+    responses.add(
+        responses.DELETE,
+        f"http://localhost/api/v1/serverparks/{server_park}/instruments/{instrument_name}/cases/{case_id}",
+        json={})
+
+    result = client.delete_case(server_park, instrument_name, case_id)
+    assert result == {}
+
+
+

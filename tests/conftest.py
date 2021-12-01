@@ -29,3 +29,20 @@ def data_fields():
         "QID.Serial_Number",
         "QHAdmin.HOut"
     ]
+
+
+@pytest.fixture
+def instrument_file():
+    return f"{instrument_name}.bpkg"
+
+
+@pytest.fixture
+def case_id():
+    return "1000001"
+
+
+@pytest.fixture
+def field_data():
+    return {
+        "QID.Serial_Number": "QHAdmin.HOut"
+        }

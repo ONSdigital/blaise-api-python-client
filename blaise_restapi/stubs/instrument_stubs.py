@@ -219,3 +219,15 @@ def api_instrument_data_response() -> Dict[str, Any]:
             }
         ]
     }
+
+
+def api_install_instrument_response() -> Dict[str, Any]:
+    return {
+        "instrumentFile": "DST2106Z.bpkg"
+    }
+
+
+def api_create_case_response() -> Dict[str, Any]:
+    return {
+        "caseId": "1000001"
+    }

@@ -59,7 +59,7 @@ class Client(object):
 
         return response.json()
 
-    def create_case(self, server_park: str, instrument_name: str, case_id: str, field_data: Dict[str, str]) -> Dict[str, Any]:
+    def create_case(self, server_park: str, instrument_name: str, case_id: str, field_data: Dict[str, Any]) -> Dict[str, Any]:
         response = requests.post(f"{self.restapi_url}/api/v1/serverparks/{server_park}/instruments/{instrument_name}/cases/{case_id}",
                                  data=field_data)
 
