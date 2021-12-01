@@ -47,3 +47,27 @@ class Client(object):
             params=data_field_params)
 
         return response.json()
+
+    def install_instrument(self, server_park: str, instrument_file: str) -> Dict[str, Any]:
+        response = requests.post(f"{self.restapi_url}/api/v1/serverparks/{server_park}/instruments",
+                                 data={'instrumentFile': instrument_file})
+
+        return response.json()
+
+    def delete_instrument(self, server_park: str, instrument_name: str) -> Dict[str, Any]:
+        response = requests.delete(f"{self.restapi_url}/api/v1/serverparks/{server_park}/instruments/{instrument_name}")
+
+        return response.json()
+
+    def create_case(self, server_park: str, instrument_name: str, case_id: str, field_data: Dict[str, str]) -> Dict[str, Any]:
+        response = requests.post(f"{self.restapi_url}/api/v1/serverparks/{server_park}/instruments/{instrument_name}/cases/{case_id}",
+                                 data=field_data)
+
+        return response.json()
+
+    def delete_case(self, server_park: str, instrument_name: str,  case_id: str) -> Dict[str, Any]:
+        response = requests.delete(f"{self.restapi_url}/api/v1/serverparks/{server_park}/instruments/{instrument_name}/cases/{case_id}")
+
+        return response.json()
+
+

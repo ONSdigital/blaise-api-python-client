@@ -17,5 +17,5 @@ import blaise_restapi
 
 Declare and consume the client by passing the URL of the rest api:
 ```
-restapi_client = blaise_restapi.Client(f"http://{url}")
+restapi_client = blaise_restapi.Client(f"{url}")
 ```
