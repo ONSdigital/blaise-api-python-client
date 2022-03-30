@@ -48,5 +48,5 @@ class Client(object):
 
         return response.json()
 
-    def patch_case_data(self, server_park: str, instrument_name: str, case_id: str, data_fields: dict) -> Union[Any, None, str]:
+    def patch_case_data(self, server_park: str, instrument_name: str, case_id: str, data_fields: dict) -> requests.Response:
         return requests.patch(f"{self.restapi_url}/api/v1/serverparks/{server_park}/instruments/{instrument_name}/cases/{case_id}", data_fields)
