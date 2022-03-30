@@ -117,5 +117,4 @@ def test_patch_case_data(client, server_park, instrument_name, case_id):
         "qDataBag.TelNo": "07000 000 01"
     }
 
-    result = client.patch_case_data(server_park, instrument_name, case_id, telephone_data)
-    assert result.status_code == 200
+    assert client.patch_case_data(server_park, instrument_name, case_id, telephone_data) is None

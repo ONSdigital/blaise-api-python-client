@@ -1,6 +1,7 @@
 from typing import Any, Dict, List, Union
 
 import requests
+from urllib3.exceptions import HTTPError
 
 from blaise_restapi.functions.instrument_functions import get_instrument_name_from_id
 
@@ -51,7 +52,10 @@ class Client(object):
         return response.json()
 
     def patch_case_data(self, server_park: str, instrument_name: str, case_id: str,
-                        data_fields: dict) -> requests.Response:
-        return requests.patch(
+                        data_fields: dict) -> None:
+        response = requests.patch(
             f"{self.restapi_url}/api/v1/serverparks/{server_park}/instruments/{instrument_name}/cases/{case_id}",
             data_fields)
+
+        if response.status_code not in (200, 204):
+            raise HTTPError(f"Failed to patch {case_id} with {data_fields}: {response.status_code} status code")
