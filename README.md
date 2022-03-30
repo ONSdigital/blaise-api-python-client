@@ -3,6 +3,17 @@
 This library facilitates calling the Blaise REST Api in python services. To use
 the library you need to do the following:
 
+### Creating new endpoints
+
+Add new endpoints and tests as required.
+
+Run tests:
+```
+poetry run python -m pytest
+```
+
+Git add, commit and push ensuring you've added the build files.
+
 ### Consuming
 
 Add a dependency to poetry:
