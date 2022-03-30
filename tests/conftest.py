@@ -24,6 +24,11 @@ def instrument_id():
 
 
 @pytest.fixture
+def case_id():
+    return "1234"
+
+
+@pytest.fixture
 def data_fields():
     return [
         "QID.Serial_Number",

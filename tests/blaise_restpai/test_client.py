@@ -105,3 +105,17 @@ def test_get_instrument_data(client, server_park, instrument_name, data_fields):
 
     result = client.get_instrument_data(server_park, instrument_name, data_fields)
     assert result == api_instrument_data_response()
+
+
+@responses.activate
+def test_patch_case_data(client, server_park, instrument_name, case_id):
+    responses.add(
+        responses.PATCH,
+        f"http://localhost/api/v1/serverparks/{server_park}/instruments/{instrument_name}/cases/{case_id}")
+
+    telephone_data = {
+        "qDataBag.TelNo": "07000 000 01"
+    }
+
+    result = client.patch_case_data(server_park, instrument_name, case_id, telephone_data)
+    assert result.status_code == 200
