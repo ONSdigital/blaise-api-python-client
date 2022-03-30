@@ -34,3 +34,10 @@ def data_fields():
         "QID.Serial_Number",
         "QHAdmin.HOut"
     ]
+
+
+@pytest.fixture
+def update_telephone_data_fields():
+    return {
+        "qDataBag.TelNo": "07000 000 01"
+    }
