@@ -12,7 +12,7 @@ Run tests:
 poetry run python -m pytest
 ```
 
-Git add, commit and push ensuring you've added the build files.
+Git add, commit and push.
 
 ### Consuming
 
