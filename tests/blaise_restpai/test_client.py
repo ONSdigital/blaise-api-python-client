@@ -1,4 +1,7 @@
 import responses
+import pytest
+
+from urllib3.exceptions import HTTPError
 
 from blaise_restapi.stubs.instrument_stubs import api_instruments_with_cati_data_stub_response, \
     api_instruments_stub_response, api_instrument_stub_response, api_instrument_with_cati_data_stub_response, \
@@ -105,3 +108,27 @@ def test_get_instrument_data(client, server_park, instrument_name, data_fields):
 
     result = client.get_instrument_data(server_park, instrument_name, data_fields)
     assert result == api_instrument_data_response()
+
+
+@responses.activate
+def test_patch_case_data_happy_path(client, server_park, instrument_name, case_id, update_telephone_data_fields):
+    responses.add(
+        responses.PATCH,
+        f"http://localhost/api/v1/serverparks/{server_park}/instruments/{instrument_name}/cases/{case_id}"
+    )
+
+    assert client.patch_case_data(server_park, instrument_name, case_id, update_telephone_data_fields) is None
+
+
+@responses.activate
+def test_patch_case_data_raises_error(client, server_park, instrument_name, case_id, update_telephone_data_fields):
+    responses.add(
+        responses.PATCH,
+        f"http://localhost/api/v1/serverparks/{server_park}/instruments/{instrument_name}/cases/{case_id}",
+        status=500
+    )
+
+    with pytest.raises(HTTPError) as err:
+        client.patch_case_data(server_park, instrument_name, case_id, update_telephone_data_fields)
+
+    assert str(err.value) == "Failed to patch 1234 with {'qDataBag.TelNo': '07000 000 01'}: 500 status code"

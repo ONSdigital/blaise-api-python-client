@@ -24,8 +24,20 @@ def instrument_id():
 
 
 @pytest.fixture
+def case_id():
+    return "1234"
+
+
+@pytest.fixture
 def data_fields():
     return [
         "QID.Serial_Number",
         "QHAdmin.HOut"
     ]
+
+
+@pytest.fixture
+def update_telephone_data_fields():
+    return {
+        "qDataBag.TelNo": "07000 000 01"
+    }
