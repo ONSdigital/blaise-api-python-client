@@ -1,7 +1,7 @@
 from typing import Any, Dict, List
 
 
-def api_instruments_with_cati_data_stub_response() -> List[Dict[str, Any]]:
+def api_questionnaires_with_cati_data_stub_response() -> List[Dict[str, Any]]:
     return [
         {
             "name": "DST2106X",
@@ -66,7 +66,7 @@ def api_instruments_with_cati_data_stub_response() -> List[Dict[str, Any]]:
     ]
 
 
-def api_instrument_with_cati_data_stub_response() -> Dict[str, Any]:
+def api_questionnaire_with_cati_data_stub_response() -> Dict[str, Any]:
     return {
             "name": "DST2106X",
             "id": "12345-12345-12345-12345-XXXXX",
@@ -99,7 +99,7 @@ def api_instrument_with_cati_data_stub_response() -> Dict[str, Any]:
         }
 
 
-def api_instruments_stub_response() -> List[Dict[str, Any]]:
+def api_questionnaires_stub_response() -> List[Dict[str, Any]]:
     return [
         {
             "name": "DST2106X",
@@ -173,7 +173,7 @@ def api_instruments_stub_response() -> List[Dict[str, Any]]:
     ]
 
 
-def api_instrument_stub_response() -> Dict[str, Any]:
+def api_questionnaire_stub_response() -> Dict[str, Any]:
     return {
             "name": "DST2106X",
             "id": "12345-12345-12345-12345-XXXXX",
@@ -199,10 +199,10 @@ def api_instrument_stub_response() -> Dict[str, Any]:
         }
 
 
-def api_instrument_data_response() -> Dict[str, Any]:
+def api_questionnaire_data_response() -> Dict[str, Any]:
     return {
-        "instrumentName": "DST2106Z",
-        "instrumentId": "12345-12345-12345-12345-12345",
+        "questionnaireName": "DST2106Z",
+        "questionnaireId": "12345-12345-12345-12345-12345",
         "reportingData": [
             {
                 "qiD.Serial_Number": "10010",
