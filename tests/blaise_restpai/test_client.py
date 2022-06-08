@@ -153,6 +153,7 @@ def test_delete_case(client, server_park, instrument_name, case_id):
     result = client.delete_case(server_park, instrument_name, case_id)
     assert result == {}
 
+@responses.activate
 def test_patch_case_data_happy_path(client, server_park, instrument_name, case_id, update_telephone_data_fields):
     responses.add(
         responses.PATCH,
@@ -173,4 +174,4 @@ def test_patch_case_data_raises_error(client, server_park, instrument_name, case
     with pytest.raises(HTTPError) as err:
         client.patch_case_data(server_park, instrument_name, case_id, update_telephone_data_fields)
 
-    assert str(err.value) == "Failed to patch 1234 with {'qDataBag.TelNo': '07000 000 01'}: 500 status code"
+    assert str(err.value) == "Failed to patch 1000001 with {'qDataBag.TelNo': '07000 000 01'}: 500 status code"
