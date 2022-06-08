@@ -14,12 +14,12 @@ def server_park():
 
 
 @pytest.fixture
-def instrument_name():
+def questionnaire_name():
     return "DST2106Y"
 
 
 @pytest.fixture
-def instrument_id():
+def questionnaire_id():
     return "12345-12345-12345-12345-YYYYY"
 
 
@@ -32,8 +32,8 @@ def data_fields():
 
 
 @pytest.fixture
-def instrument_file():
-    return f"{instrument_name}.bpkg"
+def questionnaire_file():
+    return f"{questionnaire_name}.bpkg"
 
 
 @pytest.fixture
