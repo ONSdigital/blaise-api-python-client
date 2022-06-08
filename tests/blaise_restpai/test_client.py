@@ -5,7 +5,7 @@ from urllib3.exceptions import HTTPError
 
 from blaise_restapi.stubs.instrument_stubs import api_instruments_with_cati_data_stub_response, \
     api_instruments_stub_response, api_instrument_stub_response, api_instrument_with_cati_data_stub_response, \
-    api_instrument_data_response
+    api_instrument_data_response, api_install_instrument_response, api_create_case_response
 
 
 @responses.activate
@@ -111,6 +111,49 @@ def test_get_instrument_data(client, server_park, instrument_name, data_fields):
 
 
 @responses.activate
+def test_install_instrument(client, server_park, instrument_file):
+    responses.add(
+        responses.POST,
+        f"http://localhost/api/v1/serverparks/{server_park}/instruments",
+        json=api_install_instrument_response())
+
+    result = client.install_instrument(server_park, instrument_file)
+    assert result == api_install_instrument_response()
+
+
+@responses.activate
+def test_delete_instrument(client, server_park, instrument_name):
+    responses.add(
+        responses.DELETE,
+        f"http://localhost/api/v1/serverparks/{server_park}/instruments/{instrument_name}",
+        json={})
+
+    result = client.delete_instrument(server_park, instrument_name)
+    assert result == {}
+
+
+@responses.activate
+def test_create_case(client, server_park, instrument_name, case_id, field_data):
+    responses.add(
+        responses.POST,
+        f"http://localhost/api/v1/serverparks/{server_park}/instruments/{instrument_name}/cases/{case_id}",
+        json=api_create_case_response())
+
+    result = client.create_case(server_park, instrument_name, case_id, field_data)
+    assert result == api_create_case_response()
+
+
+@responses.activate
+def test_delete_case(client, server_park, instrument_name, case_id):
+    responses.add(
+        responses.DELETE,
+        f"http://localhost/api/v1/serverparks/{server_park}/instruments/{instrument_name}/cases/{case_id}",
+        json={})
+
+    result = client.delete_case(server_park, instrument_name, case_id)
+    assert result == {}
+
+@responses.activate
 def test_patch_case_data_happy_path(client, server_park, instrument_name, case_id, update_telephone_data_fields):
     responses.add(
         responses.PATCH,
@@ -131,4 +174,4 @@ def test_patch_case_data_raises_error(client, server_park, instrument_name, case
     with pytest.raises(HTTPError) as err:
         client.patch_case_data(server_park, instrument_name, case_id, update_telephone_data_fields)
 
-    assert str(err.value) == "Failed to patch 1234 with {'qDataBag.TelNo': '07000 000 01'}: 500 status code"
+    assert str(err.value) == "Failed to patch 1000001 with {'qDataBag.TelNo': '07000 000 01'}: 500 status code"
