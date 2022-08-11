@@ -73,6 +73,12 @@ class Client(object):
 
         return response.json()
 
+    def get_case(self, server_park: str, questionnaire_name: str,  case_id: str) -> Dict[str, Any]:
+        response = requests.get(f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}")
+        if response.status_code != 200:
+            raise HTTPError(f"Failed to get {case_id}: {response.status_code} status code")
+        return response.json()
+
     def patch_case_data(self, server_park: str, questionnaire_name: str, case_id: str,
                         data_fields: dict) -> None:
         response = requests.patch(

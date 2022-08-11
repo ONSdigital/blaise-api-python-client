@@ -153,6 +153,35 @@ def test_delete_case(client, server_park, questionnaire_name, case_id):
     result = client.delete_case(server_park, questionnaire_name, case_id)
     assert result == {}
 
+
+@responses.activate
+def test_get_case(client, server_park, questionnaire_name, case_id):
+    responses.add(
+        responses.GET,
+        f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
+        json={
+                "caseId": "12345",
+                "fieldData": {}
+            })
+
+    result = client.get_case(server_park, questionnaire_name, case_id)
+    assert result == {
+                "caseId": "12345",
+                "fieldData": {}
+            }
+
+
+@responses.activate
+def test_get_case_when_case_not_found(client, server_park, questionnaire_name, case_id):
+    responses.add(
+        responses.GET,
+        f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
+        status=404
+        )
+    with pytest.raises(HTTPError):
+        client.get_case(server_park, questionnaire_name, case_id)
+    
+
 @responses.activate
 def test_patch_case_data_happy_path(client, server_park, questionnaire_name, case_id, update_telephone_data_fields):
     responses.add(
