@@ -18,7 +18,8 @@ class Client(object):
         response = requests.get(f"{self.restapi_url}/api/v2/cati/serverparks/{server_park}/questionnaires")
         return response.json()
 
-    def get_questionnaire_with_cati_data_for_server_park(self, server_park: str, questionnaire_name: str) -> Dict[str, Any]:
+    def get_questionnaire_with_cati_data_for_server_park(self, server_park: str, questionnaire_name: str) -> Dict[
+        str, Any]:
         response = requests.get(
             f"{self.restapi_url}/api/v2/cati/serverparks/{server_park}/questionnaires/{questionnaire_name}")
         return response.json()
@@ -28,7 +29,8 @@ class Client(object):
         return response.json()
 
     def get_questionnaire_for_server_park(self, server_park: str, questionnaire_name: str) -> Dict[str, Any]:
-        response = requests.get(f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}")
+        response = requests.get(
+            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}")
         return response.json()
 
     def questionnaire_exists_on_server_park(self, server_park: str, questionnaire_name: str) -> bool:
@@ -52,24 +54,29 @@ class Client(object):
         return response.json()
 
     def install_questionnaire(self, server_park: str, questionnaire_file: str) -> Dict[str, Any]:
-        response = requests.post(f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires",
-                                 data={'questionnaireFile': questionnaire_file})
+        response = requests.post(
+            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires",
+            data={'questionnaireFile': questionnaire_file})
 
         return response.json()
 
     def delete_questionnaire(self, server_park: str, questionnaire_name: str) -> Dict[str, Any]:
-        response = requests.delete(f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}")
+        response = requests.delete(
+            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}")
 
         return response.json()
 
-    def create_case(self, server_park: str, questionnaire_name: str, case_id: str, field_data: Dict[str, Any]) -> Dict[str, Any]:
-        response = requests.post(f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
-                                 data=field_data)
+    def create_case(self, server_park: str, questionnaire_name: str, case_id: str, data_fields: Dict[str, Any]) -> Dict[
+        str, Any]:
+        response = requests.post(
+            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
+            data=data_fields)
 
         return response.json()
 
-    def delete_case(self, server_park: str, questionnaire_name: str,  case_id: str) -> Dict[str, Any]:
-        response = requests.delete(f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}")
+    def delete_case(self, server_park: str, questionnaire_name: str, case_id: str) -> Dict[str, Any]:
+        response = requests.delete(
+            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}")
 
         return response.json()
 
@@ -83,7 +90,7 @@ class Client(object):
                         data_fields: dict) -> None:
         response = requests.patch(
             f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
-            data_fields)
+            data=data_fields)
 
         if response.status_code not in (200, 204):
             raise HTTPError(f"Failed to patch {case_id} with {data_fields}: {response.status_code} status code")
