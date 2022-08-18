@@ -186,7 +186,8 @@ def test_get_case_when_case_not_found(client, server_park, questionnaire_name, c
 def test_patch_case_data_happy_path(client, server_park, questionnaire_name, case_id, update_telephone_data_fields):
     responses.add(
         responses.PATCH,
-        f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}"
+        f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
+        json={}
     )
 
     assert client.patch_case_data(server_park, questionnaire_name, case_id, update_telephone_data_fields) is None
