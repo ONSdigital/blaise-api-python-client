@@ -66,8 +66,7 @@ class Client(object):
 
         return response.json()
 
-    def create_case(self, server_park: str, questionnaire_name: str, case_id: str, data_fields: Dict[str, Any]) -> Dict[
-        str, Any]:
+    def create_case(self, server_park: str, questionnaire_name: str, case_id: str, data_fields: Dict[str, Any]) -> Dict[str, Any]:
         response = requests.post(
             f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
             data=data_fields)
@@ -81,16 +80,18 @@ class Client(object):
         return response.json()
 
     def get_case(self, server_park: str, questionnaire_name: str,  case_id: str) -> Dict[str, Any]:
-        response = requests.get(f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}")
+        response = requests.get(
+            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}")
+
         if response.status_code != 200:
             raise HTTPError(f"Failed to get {case_id}: {response.status_code} status code")
+
         return response.json()
 
-    def patch_case_data(self, server_park: str, questionnaire_name: str, case_id: str,
-                        data_fields: dict) -> None:
+    def patch_case_data(self, server_park: str, questionnaire_name: str, case_id: str, data_fields: dict) -> None:
         response = requests.patch(
             f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
             data=data_fields)
 
         if response.status_code not in (200, 204):
-            raise HTTPError(f"Failed to patch {case_id} with {data_fields}: {response.status_code} status code")
+            raise HTTPError(f"Failed to patch {case_id} with {data_fields} for questionnaire {questionnaire_name}: {response.status_code} status code")
