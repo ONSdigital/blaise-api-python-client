@@ -56,7 +56,7 @@ class Client(object):
     def install_questionnaire(self, server_park: str, questionnaire_file: str) -> Dict[str, Any]:
         response = requests.post(
             f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires",
-            data={'questionnaireFile': questionnaire_file})
+            json={'questionnaireFile': questionnaire_file})
 
         return response.json()
 
@@ -69,7 +69,7 @@ class Client(object):
     def create_case(self, server_park: str, questionnaire_name: str, case_id: str, data_fields: Dict[str, Any]) -> Dict[str, Any]:
         response = requests.post(
             f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
-            data=data_fields)
+            json=data_fields)
 
         return response.json()
 
@@ -91,7 +91,7 @@ class Client(object):
     def patch_case_data(self, server_park: str, questionnaire_name: str, case_id: str, data_fields: dict) -> None:
         response = requests.patch(
             f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
-            data=data_fields)
+            json=data_fields)
 
         if response.status_code not in (200, 204):
             raise HTTPError(f"Failed to patch {case_id} with {data_fields} for questionnaire {questionnaire_name}: {response.status_code} status code")
