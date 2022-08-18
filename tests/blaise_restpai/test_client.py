@@ -204,4 +204,4 @@ def test_patch_case_data_raises_error(client, server_park, questionnaire_name, c
     with pytest.raises(HTTPError) as err:
         client.patch_case_data(server_park, questionnaire_name, case_id, update_telephone_data_fields)
 
-    assert str(err.value) == "Failed to patch 1000001 with {'qDataBag.TelNo': '07000 000 01'}: 500 status code"
+    assert str(err.value) == "Failed to patch 1000001 with {'qDataBag.TelNo': '07000 000 01'} for questionnaire DST2106Y: 500 status code"
