@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "blaise_restapi"
-version = "1.0.1"
+version = "1.0.2"
 description = "Client for calling Blaise RestAPI"
 authors = ["Blaise 5 Team"]
 packages = [
