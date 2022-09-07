@@ -95,3 +95,8 @@ class Client(object):
 
         if response.status_code not in (200, 204):
             raise HTTPError(f"Failed to patch {case_id} with {data_fields} for questionnaire {questionnaire_name}: {response.status_code} status code")
+
+    def get_case_status(self, server_park: str, questionnaire_name: str) -> Dict[str, Any]:
+        response = requests.get(
+            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/status")
+        return response.json()
