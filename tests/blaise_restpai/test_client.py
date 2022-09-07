@@ -205,3 +205,20 @@ def test_patch_case_data_raises_error(client, server_park, questionnaire_name, c
         client.patch_case_data(server_park, questionnaire_name, case_id, update_telephone_data_fields)
 
     assert str(err.value) == "Failed to patch 1000001 with {'qDataBag.TelNo': '07000 000 01'} for questionnaire DST2106Y: 500 status code"
+
+
+@responses.activate
+def test_get_case_status(client, server_park, questionnaire_name):
+    responses.add(
+        responses.GET,
+        f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/status",
+        json={
+                "primaryKey": "12345",
+                "outcome": 0
+            })
+
+    result = client.get_case(server_park, questionnaire_name)
+    assert result == {
+                "primaryKey": "12345",
+                "outcome": 0
+            }
