@@ -88,6 +88,12 @@ class Client(object):
 
         return response.json()
 
+    def case_exists_for_questionnaire(self, server_park: str, questionnaire_name: str,  case_id: str) -> bool:
+        response = requests.get(
+            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}/exists")
+
+        return response.json()
+
     def patch_case_data(self, server_park: str, questionnaire_name: str, case_id: str, data_fields: dict) -> None:
         response = requests.patch(
             f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",

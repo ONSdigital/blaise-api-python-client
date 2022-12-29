@@ -180,7 +180,41 @@ def test_get_case_when_case_not_found(client, server_park, questionnaire_name, c
         )
     with pytest.raises(HTTPError):
         client.get_case(server_park, questionnaire_name, case_id)
+
+
+@responses.activate
+def test_get_case_when_case_errors(client, server_park, questionnaire_name, case_id):
+    responses.add(
+        responses.GET,
+        f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
+        status=500
+        )
+    with pytest.raises(HTTPError):
+        client.get_case(server_park, questionnaire_name, case_id)
     
+
+
+@responses.activate
+def test_case_exists_for_questionnaire_returns_true_if_exists(client, server_park, questionnaire_name, case_id):
+    responses.add(
+        responses.GET,
+        f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}/exists",
+        json=True)
+
+    result = client.case_exists_for_questionnaire(server_park, questionnaire_name, case_id)
+    assert result is True
+
+
+@responses.activate
+def est_case_exists_for_questionnaire_returns_false_if_it_does_not_exist(client, server_park, questionnaire_name):
+    responses.add(
+        responses.GET,
+        f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/notfound/exists",
+        json=False)
+
+    result = client.case_exists_for_questionnaire(server_park, questionnaire_name, "notfound")
+    assert result is False
+
 
 @responses.activate
 def test_patch_case_data_happy_path(client, server_park, questionnaire_name, case_id, update_telephone_data_fields):
@@ -217,7 +251,7 @@ def test_get_case_status(client, server_park, questionnaire_name):
                 "outcome": 0
             })
 
-    result = client.get_case(server_park, questionnaire_name)
+    result = client.get_case_status(server_park, questionnaire_name)
     assert result == {
                 "primaryKey": "12345",
                 "outcome": 0
