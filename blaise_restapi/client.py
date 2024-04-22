@@ -116,6 +116,21 @@ class Client(object):
 
         return response.json()
 
+    def get_multikey_case(self, server_park: str, questionnaire_name: str,  key_names: list, key_values: list) -> Dict[str, Any]:
+        query_params = {'serverParkName': server_park, 'questionnaireName': questionnaire_name}
+        for name, value in zip(key_names, key_values):
+            query_params.setdefault('keyNames[]', []).append(name)
+            query_params.setdefault('keyValues[]', []).append(value)
+        response = requests.get(
+            f"{self.restapi_url}/api/v2/serverparks/exists/multikey",
+            params=query_params
+        )
+
+        if response.status_code != 200:
+            raise HTTPError(f"Failed to get {key_values[1]}: {response.status_code} status code")
+
+        return response.json()
+
     def case_exists_for_questionnaire(self, server_park: str, questionnaire_name: str,  case_id: str) -> bool:
         response = requests.get(
             f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}/exists")

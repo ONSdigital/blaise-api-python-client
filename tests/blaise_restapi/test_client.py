@@ -194,6 +194,21 @@ def test_get_case(client, server_park, questionnaire_name, case_id):
 
 
 @responses.activate
+def test_get_multikey_case(client, server_park, questionnaire_name, key_names, key_values):
+    # Mocking the response from the server
+    responses.add(
+        responses.GET,
+        f"http://localhost/api/v2/serverparks/exists/multikey",
+        json=True,
+        status=200
+    )
+
+    result = client.get_multikey_case(server_park, questionnaire_name, key_names, key_values)
+    assert result is True
+
+
+
+@responses.activate
 def test_get_case_when_case_not_found(client, server_park, questionnaire_name, case_id):
     responses.add(
         responses.GET,
