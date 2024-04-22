@@ -122,7 +122,7 @@ class Client(object):
             query_params.setdefault('keyNames[]', []).append(name)
             query_params.setdefault('keyValues[]', []).append(value)
         response = requests.get(
-            f"{self.restapi_url}/api/v2/serverparks/exists/multikey",
+            f"{self.restapi_url}/api/v2/serverparks/multikey",
             params=query_params
         )
 
@@ -136,6 +136,17 @@ class Client(object):
             f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}/exists")
 
         return response.json()
+
+    def multikey_case_exists_for_questionnaire(self, server_park: str, questionnaire_name: str,  key_names: list, key_values: list) -> bool:
+        query_params = {'serverParkName': server_park, 'questionnaireName': questionnaire_name}
+        for name, value in zip(key_names, key_values):
+            query_params.setdefault('keyNames[]', []).append(name)
+            query_params.setdefault('keyValues[]', []).append(value)
+        response = requests.get(
+            f"{self.restapi_url}/api/v2/serverparks/exists/multikey",)
+
+        return response.json()
+
 
     def patch_case_data(self, server_park: str, questionnaire_name: str, case_id: str, data_fields: dict) -> None:
         response = requests.patch(

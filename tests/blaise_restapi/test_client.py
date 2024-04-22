@@ -195,16 +195,15 @@ def test_get_case(client, server_park, questionnaire_name, case_id):
 
 @responses.activate
 def test_get_multikey_case(client, server_park, questionnaire_name, key_names, key_values):
-    # Mocking the response from the server
     responses.add(
         responses.GET,
-        f"http://localhost/api/v2/serverparks/exists/multikey",
-        json=True,
+        f"http://localhost/api/v2/serverparks/multikey",
+        json={"fieldData": {}},
         status=200
     )
 
     result = client.get_multikey_case(server_park, questionnaire_name, key_names, key_values)
-    assert result is True
+    assert result == {"fieldData": {}}
 
 
 
@@ -239,6 +238,17 @@ def test_case_exists_for_questionnaire_returns_true_if_exists(client, server_par
         json=True)
 
     result = client.case_exists_for_questionnaire(server_park, questionnaire_name, case_id)
+    assert result is True
+
+
+@responses.activate
+def test_case_exists_for_questionnaire_returns_true_if_exists(client, server_park, questionnaire_name, key_names, key_values):
+    responses.add(
+        responses.GET,
+        f"http://localhost/api/v2/serverparks/exists/multikey",
+        json=True)
+
+    result = client.multikey_case_exists_for_questionnaire(server_park, questionnaire_name, key_names, key_values)
     assert result is True
 
 
