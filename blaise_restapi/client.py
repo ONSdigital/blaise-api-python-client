@@ -73,6 +73,21 @@ class Client(object):
 
         return response.json()
 
+    def create_multikey_case(self, server_park: str, questionnaire_name: str, key_names: list, key_values: list,
+                            data_fields: Dict[str, Any]) -> Dict[str, Any]:
+        query_params = {'serverParkName': server_park, 'questionnaireName': questionnaire_name}
+        for name, value in zip(key_names, key_values):
+            query_params[f'keyNames[]'] = name
+            query_params[f'keyValues[]'] = value
+
+        response = requests.post(
+            f"{self.restapi_url}/api/v2/serverparks/multikey",
+            params=query_params,
+            json=data_fields
+        )
+
+        return response.json()
+
     def delete_case(self, server_park: str, questionnaire_name: str, case_id: str) -> Dict[str, Any]:
         response = requests.delete(
             f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}")

@@ -144,6 +144,17 @@ def test_create_case(client, server_park, questionnaire_name, case_id, field_dat
 
 
 @responses.activate
+def test_create_case_with_multikey(client, server_park, questionnaire_name, key_names, key_values, field_data):
+    responses.add(
+        responses.POST,
+        "http://localhost/api/v2/serverparks/multikey",
+        json=api_create_case_response())
+
+    result = client.create_multikey_case(server_park, questionnaire_name, key_names, key_values, field_data)
+    assert result == api_create_case_response()
+
+
+@responses.activate
 def test_delete_case(client, server_park, questionnaire_name, case_id):
     responses.add(
         responses.DELETE,
@@ -206,7 +217,7 @@ def test_case_exists_for_questionnaire_returns_true_if_exists(client, server_par
 
 
 @responses.activate
-def est_case_exists_for_questionnaire_returns_false_if_it_does_not_exist(client, server_park, questionnaire_name):
+def test_case_exists_for_questionnaire_returns_false_if_it_does_not_exist(client, server_park, questionnaire_name):
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/notfound/exists",

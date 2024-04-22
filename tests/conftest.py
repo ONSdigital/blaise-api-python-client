@@ -52,3 +52,14 @@ def update_telephone_data_fields():
     return {
         "qDataBag.TelNo": "07000 000 01"
     }
+
+
+@pytest.fixture
+def key_values():
+    return ["MainSurveyID", "ID"]
+
+
+@pytest.fixture
+def key_names():
+    return ["12345-12345-12345-12345", "1000001"]
+
