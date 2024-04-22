@@ -166,6 +166,17 @@ def test_delete_case(client, server_park, questionnaire_name, case_id):
 
 
 @responses.activate
+def test_delete_case_with_multikey(client, server_park, questionnaire_name, key_names, key_values):
+    responses.add(
+        responses.DELETE,
+        "http://localhost/api/v2/serverparks/multikey",
+        json={})
+
+    result = client.delete_multikey_case(server_park, questionnaire_name, key_names, key_values)
+    assert result == {}
+
+
+@responses.activate
 def test_get_case(client, server_park, questionnaire_name, case_id):
     responses.add(
         responses.GET,
