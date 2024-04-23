@@ -219,6 +219,16 @@ def test_get_case_when_case_not_found(client, server_park, questionnaire_name, c
 
 
 @responses.activate
+def test_get_multikey_case_when_case_not_found(client, server_park, questionnaire_name, key_names, key_values):
+    responses.add(
+        responses.GET,
+        f"http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
+        status=404
+        )
+    with pytest.raises(HTTPError):
+        client.get_multikey_case(server_park, questionnaire_name, key_names, key_values)
+
+@responses.activate
 def test_get_case_when_case_errors(client, server_park, questionnaire_name, case_id):
     responses.add(
         responses.GET,
@@ -227,8 +237,16 @@ def test_get_case_when_case_errors(client, server_park, questionnaire_name, case
         )
     with pytest.raises(HTTPError):
         client.get_case(server_park, questionnaire_name, case_id)
-    
 
+@responses.activate
+def test_get_mulitkey_case_when_case_errors(client, server_park, questionnaire_name, key_names, key_values):
+    responses.add(
+        responses.GET,
+        f"http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
+        status=500
+    )
+    with pytest.raises(HTTPError):
+        client.get_multikey_case(server_park, questionnaire_name, key_names, key_values)
 
 @responses.activate
 def test_case_exists_for_questionnaire_returns_true_if_exists(client, server_park, questionnaire_name, case_id):
@@ -262,6 +280,15 @@ def test_case_exists_for_questionnaire_returns_false_if_it_does_not_exist(client
     result = client.case_exists_for_questionnaire(server_park, questionnaire_name, "notfound")
     assert result is False
 
+@responses.activate
+def test_multikey_case_exists_for_questionnaire_returns_false_if_it_does_not_exist(client, server_park, questionnaire_name):
+    responses.add(
+        responses.GET,
+        f"http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/exists/multikey",
+        json=False)
+
+    result = client.multikey_case_exists_for_questionnaire(server_park, questionnaire_name, "notfound", "notfound")
+    assert result is False
 
 @responses.activate
 def test_patch_case_data_happy_path(client, server_park, questionnaire_name, case_id, update_telephone_data_fields):
@@ -299,6 +326,18 @@ def test_patch_case_data_raises_error(client, server_park, questionnaire_name, c
 
     assert str(err.value) == "Failed to patch 1000001 with {'qDataBag.TelNo': '07000 000 01'} for questionnaire DST2106Y: 500 status code"
 
+@responses.activate
+def test_patch_multikey_case_data_raises_error(client, server_park, questionnaire_name, key_names, key_values, update_telephone_data_fields):
+    responses.add(
+        responses.PATCH,
+        "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
+        status=500
+    )
+
+    with pytest.raises(HTTPError) as err:
+        client.patch_multikey_case_data(server_park, questionnaire_name, key_names, key_values, update_telephone_data_fields)
+
+    assert str(err.value) == "Failed to patch 1000001 with {'qDataBag.TelNo': '07000 000 01'} for questionnaire DST2106Y: 500 status code"
 
 @responses.activate
 def test_get_case_status(client, server_park, questionnaire_name):
