@@ -377,9 +377,6 @@ def test_get_users(client):
     }
 
 @responses.activate
-def test_format_url_query_string(client):
-    key_names = ['MainSurveyID', 'ID']
-    key_values = ['0ce218dd-3b98-4e15-aaf3-9e130acdbc7b', '900001']
+def test_format_url_query_string(client, key_names, key_values):
+    assert client.format_url_query_string(key_names, key_values) == "keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001"
 
-    result = client.format_url_query_string(key_names, key_values)
-    assert result == "keyNames=MainSurveyID&keyNames=ID&keyValues=0ce218dd-3b98-4e15-aaf3-9e130acdbc7b&keyValues=900001"
