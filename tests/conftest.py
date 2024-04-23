@@ -55,11 +55,11 @@ def update_telephone_data_fields():
 
 
 @pytest.fixture
-def key_values():
+def key_names():
     return ["MainSurveyID", "ID"]
 
 
 @pytest.fixture
-def key_names():
+def key_values():
     return ["12345-12345-12345-12345", "1000001"]
 
