@@ -378,5 +378,6 @@ def test_get_users(client):
 
 @responses.activate
 def test_format_url_query_string(client, key_names, key_values):
-    assert client.format_url_query_string(key_names, key_values) == "keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001"
-
+    assert client.format_url_query_string(key_names, key_values) == (
+        "keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001"
+    )
