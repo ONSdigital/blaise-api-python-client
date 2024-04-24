@@ -10,6 +10,11 @@ class Client(object):
     def __init__(self, restapi_url):
         self.restapi_url = restapi_url
 
+    def format_url_query_string(self, key_names: list, key_values: list) -> str:
+        query_string = '&'.join([f"keyNames={name}" for name in key_names] +
+                                [f"keyValues={value}" for value in key_values])
+        return query_string
+
     def get_all_questionnaires_with_cati_data(self) -> List[Dict[str, Any]]:
         response = requests.get(f"{self.restapi_url}/api/v2/cati/questionnaires")
         return response.json()
@@ -66,10 +71,21 @@ class Client(object):
 
         return response.json()
 
-    def create_case(self, server_park: str, questionnaire_name: str, case_id: str, data_fields: Dict[str, Any]) -> Dict[str, Any]:
+    def create_case(self, server_park: str, questionnaire_name: str, case_id: str, data_fields: Dict[str, Any]) -> Dict[
+        str, Any]:
         response = requests.post(
             f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
             json=data_fields)
+
+        return response.json()
+
+    def create_multikey_case(self, server_park: str, questionnaire_name: str, key_names: list, key_values: list,
+                             data_fields: Dict[str, Any]) -> Dict[str, Any]:
+        query_string = self.format_url_query_string(key_names, key_values)
+        response = requests.post(
+            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/multikey?{query_string}",
+            json=data_fields
+        )
 
         return response.json()
 
@@ -79,7 +95,15 @@ class Client(object):
 
         return response.json()
 
-    def get_case(self, server_park: str, questionnaire_name: str,  case_id: str) -> Dict[str, Any]:
+    def delete_multikey_case(self, server_park: str, questionnaire_name: str, key_names: list, key_values: list) -> Dict[str, Any]:
+        query_string = self.format_url_query_string(key_names, key_values)
+        response = requests.delete(
+            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/multikey?{query_string}"
+        )
+
+        return response.json()
+
+    def get_case(self, server_park: str, questionnaire_name: str, case_id: str) -> Dict[str, Any]:
         response = requests.get(
             f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}")
 
@@ -88,9 +112,28 @@ class Client(object):
 
         return response.json()
 
-    def case_exists_for_questionnaire(self, server_park: str, questionnaire_name: str,  case_id: str) -> bool:
+    def get_multikey_case(self, server_park: str, questionnaire_name: str, key_names: list, key_values: list) -> Dict[
+        str, Any]:
+        query_string = self.format_url_query_string(key_names, key_values)
+        response = requests.get(
+            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/multikey?{query_string}",
+        )
+
+        if response.status_code != 200:
+            raise HTTPError(f"Failed to get {key_values[1]}: {response.status_code} status code")
+
+        return response.json()
+
+    def case_exists_for_questionnaire(self, server_park: str, questionnaire_name: str, case_id: str) -> bool:
         response = requests.get(
             f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}/exists")
+
+        return response.json()
+
+    def multikey_case_exists_for_questionnaire(self, server_park: str, questionnaire_name: str, key_names: list, key_values: list) -> bool:
+        query_string = self.format_url_query_string(key_names, key_values)
+        response = requests.get(
+            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/exists/multikey?{query_string}")
 
         return response.json()
 
@@ -100,9 +143,25 @@ class Client(object):
             json=data_fields)
 
         if response.status_code not in (200, 204):
-            raise HTTPError(f"Failed to patch {case_id} with {data_fields} for questionnaire {questionnaire_name}: {response.status_code} status code")
+            raise HTTPError(
+                f"Failed to patch {case_id} with {data_fields} for questionnaire {questionnaire_name}: {response.status_code} status code")
+
+    def patch_multikey_case_data(self, server_park: str, questionnaire_name: str, key_names: list, key_values: list, data_fields: dict) -> None:
+        query_string = self.format_url_query_string(key_names, key_values)
+        response = requests.patch(
+            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/multikey?{query_string}",
+            json=data_fields)
+
+        if response.status_code not in (200, 204):
+            raise HTTPError(
+                f"Failed to patch {key_values[1]} with {data_fields} for questionnaire {questionnaire_name}: {response.status_code} status code")
 
     def get_case_status(self, server_park: str, questionnaire_name: str) -> Dict[str, Any]:
         response = requests.get(
             f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/status")
+        return response.json()
+
+    def get_users(self) -> Dict[str, Any]:
+        response = requests.get(
+            f"{self.restapi_url}/api/v2/users")
         return response.json()
