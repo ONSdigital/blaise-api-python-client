@@ -149,7 +149,7 @@ class Client(object):
     def patch_multikey_case_data(self, server_park: str, questionnaire_name: str, key_names: list, key_values: list, data_fields: dict) -> None:
         query_string = self.format_url_query_string(key_names, key_values)
         response = requests.patch(
-            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/multikey?{query_string}",
+            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/multikey?{query_string}",
             json=data_fields)
 
         if response.status_code not in (200, 204):

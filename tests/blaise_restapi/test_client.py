@@ -305,7 +305,7 @@ def test_patch_case_data_happy_path(client, server_park, questionnaire_name, cas
 def test_patch_multikey_case_data_happy_path(client, server_park, questionnaire_name, key_names, key_values, update_telephone_data_fields):
     responses.add(
         responses.PATCH,
-         "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001"
+         "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001"
 ,
         json={},
         status=204
@@ -330,7 +330,7 @@ def test_patch_case_data_raises_error(client, server_park, questionnaire_name, c
 def test_patch_multikey_case_data_raises_error(client, server_park, questionnaire_name, key_names, key_values, update_telephone_data_fields):
     responses.add(
         responses.PATCH,
-        "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
+        "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
         status=500
     )
 
