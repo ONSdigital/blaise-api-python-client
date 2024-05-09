@@ -83,7 +83,7 @@ class Client(object):
                              data_fields: Dict[str, Any]) -> Dict[str, Any]:
         query_string = self.format_url_query_string(key_names, key_values)
         response = requests.post(
-            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/multikey?{query_string}",
+            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/multikey?{query_string}",
             json=data_fields
         )
 

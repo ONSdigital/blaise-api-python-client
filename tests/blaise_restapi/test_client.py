@@ -148,7 +148,7 @@ def test_create_case(client, server_park, questionnaire_name, case_id, field_dat
 def test_create_multikey_case(client, server_park, questionnaire_name, key_names, key_values, field_data):
     responses.add(
         responses.POST,
-        f"http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
+        f"http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
         json=api_create_case_response())
 
     result = client.create_multikey_case(server_park, questionnaire_name, key_names, key_values, field_data)
