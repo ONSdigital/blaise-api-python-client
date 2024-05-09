@@ -98,7 +98,7 @@ class Client(object):
     def delete_multikey_case(self, server_park: str, questionnaire_name: str, key_names: list, key_values: list) -> Dict[str, Any]:
         query_string = self.format_url_query_string(key_names, key_values)
         response = requests.delete(
-            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/multikey?{query_string}"
+            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/multikey?{query_string}"
         )
 
         return response.json()
@@ -133,7 +133,7 @@ class Client(object):
     def multikey_case_exists_for_questionnaire(self, server_park: str, questionnaire_name: str, key_names: list, key_values: list) -> bool:
         query_string = self.format_url_query_string(key_names, key_values)
         response = requests.get(
-            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/exists/multikey?{query_string}")
+            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/exists/multikey?{query_string}")
 
         return response.json()
 

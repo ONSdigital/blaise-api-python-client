@@ -169,7 +169,7 @@ def test_delete_case(client, server_park, questionnaire_name, case_id):
 def test_delete_case_with_multikey(client, server_park, questionnaire_name, key_names, key_values):
     responses.add(
         responses.DELETE,
-        "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
+        "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
         json={})
 
     result = client.delete_multikey_case(server_park, questionnaire_name, key_names, key_values)
@@ -263,7 +263,7 @@ def test_case_exists_for_questionnaire_returns_true_if_exists(client, server_par
 def test_multikey_case_exists_for_questionnaire_returns_true_if_exists(client, server_park, questionnaire_name, key_names, key_values):
     responses.add(
         responses.GET,
-        f"http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/exists/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
+        f"http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/exists/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
         json=True)
 
     result = client.multikey_case_exists_for_questionnaire(server_park, questionnaire_name, key_names, key_values)
@@ -284,7 +284,7 @@ def test_case_exists_for_questionnaire_returns_false_if_it_does_not_exist(client
 def test_multikey_case_exists_for_questionnaire_returns_false_if_it_does_not_exist(client, server_park, questionnaire_name):
     responses.add(
         responses.GET,
-        f"http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/exists/multikey",
+        f"http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/exists/multikey",
         json=False)
 
     result = client.multikey_case_exists_for_questionnaire(server_park, questionnaire_name, "notfound", "notfound")
