@@ -110,6 +110,16 @@ def test_get_questionnaire_data(client, server_park, questionnaire_name, data_fi
     result = client.get_questionnaire_data(server_park, questionnaire_name, data_fields)
     assert result == api_questionnaire_data_response()
 
+@responses.activate
+def test_get_questionnaire_data_with_filter(client, server_park, questionnaire_name, data_fields):
+    responses.add(
+        responses.GET,
+        f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/report",
+        json=api_questionnaire_data_response())
+
+    result = client.get_questionnaire_data(server_park, questionnaire_name, data_fields, 'ID=2')
+    assert result == api_questionnaire_data_response()
+
 
 @responses.activate
 def test_install_questionnaire(client, server_park, questionnaire_file):
