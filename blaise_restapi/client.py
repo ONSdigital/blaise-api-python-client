@@ -48,10 +48,12 @@ class Client(object):
         questionnaire_list = response.json()
         return get_questionnaire_name_from_id(questionnaire_id, questionnaire_list)
 
-    def get_questionnaire_data(self, server_park: str, questionnaire_name: str, data_fields: List) -> Dict[str, Any]:
+    def get_questionnaire_data(self, server_park: str, questionnaire_name: str, data_fields: List, filter: str = None) -> Dict[str, Any]:
         data_field_params = []
         for field in data_fields:
             data_field_params.append(("fieldIds", field))
+        if filter is not None:
+            data_field_params.append(("filter", filter))
         response = requests.get(
             f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/report",
             params=data_field_params)
