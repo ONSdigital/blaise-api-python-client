@@ -5,7 +5,7 @@ from urllib3.exceptions import HTTPError
 
 from blaise_restapi.stubs.questionnaire_stubs import api_questionnaires_with_cati_data_stub_response, \
     api_questionnaires_stub_response, api_questionnaire_stub_response, api_questionnaire_with_cati_data_stub_response, \
-    api_questionnaire_data_response, api_install_questionnaire_response, api_create_case_response
+    api_questionnaire_data_response, api_install_questionnaire_response, api_create_case_response, api_ingest_response
 
 from blaise_restapi.client import Client
 
@@ -391,3 +391,17 @@ def test_format_url_query_string(client, key_names, key_values):
     assert client.format_url_query_string(key_names, key_values) == (
         "keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001"
     )
+
+
+@responses.activate
+def test_ingest(client, server_park, questionnaire_name, field_data):
+    responses.add(
+        responses.POST,
+        f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/ingest",
+        json=api_ingest_response())
+
+    result = client.get_ingest(server_park, questionnaire_name, field_data)
+    assert result == api_ingest_response()
+
+
+    # f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/ingest",

@@ -167,3 +167,10 @@ class Client(object):
         response = requests.get(
             f"{self.restapi_url}/api/v2/users")
         return response.json()
+
+    def get_ingest(self, server_park: str, questionnaire_name: str, data_fields: Dict[str, Any]) -> Dict[str, Any]:
+        response = requests.post(
+            f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/ingest",
+            json=data_fields
+        )
+        return response.json()

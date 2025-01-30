@@ -231,3 +231,9 @@ def api_create_case_response() -> Dict[str, Any]:
     return {
         "caseId": "1000001"
     }
+
+
+def api_ingest_response() -> Dict[str, Any]:
+    return {
+        "bucketFilePath": "IPS2501A.ZIP"
+    }
