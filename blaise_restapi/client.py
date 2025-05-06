@@ -163,7 +163,7 @@ class Client(object):
             f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/status")
         return response.json()
 
-    def get_users(self) -> Dict[str, Any]:
+    def get_users(self) -> list[dict[str, Any]]:
         response = requests.get(
             f"{self.restapi_url}/api/v2/users")
         return response.json()
