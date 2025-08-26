@@ -1,5 +1,3 @@
-mkfile_dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-
 .PHONY: show-help
 ## This help screen
 show-help:
