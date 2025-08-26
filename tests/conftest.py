@@ -25,10 +25,7 @@ def questionnaire_id():
 
 @pytest.fixture
 def data_fields():
-    return [
-        "QID.Serial_Number",
-        "QHAdmin.HOut"
-    ]
+    return ["QID.Serial_Number", "QHAdmin.HOut"]
 
 
 @pytest.fixture
@@ -43,15 +40,12 @@ def case_id():
 
 @pytest.fixture
 def field_data():
-    return {
-        "QID.Serial_Number": "QHAdmin.HOut"
-        }
+    return {"QID.Serial_Number": "QHAdmin.HOut"}
+
 
 @pytest.fixture
 def update_telephone_data_fields():
-    return {
-        "qDataBag.TelNo": "07000 000 01"
-    }
+    return {"qDataBag.TelNo": "07000 000 01"}
 
 
 @pytest.fixture
@@ -62,4 +56,3 @@ def key_names():
 @pytest.fixture
 def key_values():
     return ["12345-12345-12345-12345", "1000001"]
-

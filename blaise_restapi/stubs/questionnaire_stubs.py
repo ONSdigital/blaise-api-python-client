@@ -12,18 +12,9 @@ def api_questionnaires_with_cati_data_stub_response() -> List[Dict[str, Any]]:
             "dataRecordCount": 1337,
             "hasData": True,
             "nodes": [
-                {
-                    "nodeName": "blaise-gusty-mgmt",
-                    "nodeStatus": "Active"
-                },
-                {
-                    "nodeName": "blaise-gusty-data-entry-1",
-                    "nodeStatus": "Active"
-                },
-                {
-                    "nodeName": "blaise-gusty-data-entry-2",
-                    "nodeStatus": "Active"
-                }
+                {"nodeName": "blaise-gusty-mgmt", "nodeStatus": "Active"},
+                {"nodeName": "blaise-gusty-data-entry-1", "nodeStatus": "Active"},
+                {"nodeName": "blaise-gusty-data-entry-2", "nodeStatus": "Active"},
             ],
             "Active": True,
             "ActiveToday": True,
@@ -42,18 +33,9 @@ def api_questionnaires_with_cati_data_stub_response() -> List[Dict[str, Any]]:
             "dataRecordCount": 42,
             "hasData": True,
             "nodes": [
-                {
-                    "nodeName": "blaise-gusty-mgmt",
-                    "nodeStatus": "Active"
-                },
-                {
-                    "nodeName": "blaise-gusty-data-entry-1",
-                    "nodeStatus": "Active"
-                },
-                {
-                    "nodeName": "blaise-gusty-data-entry-2",
-                    "nodeStatus": "Active"
-                }
+                {"nodeName": "blaise-gusty-mgmt", "nodeStatus": "Active"},
+                {"nodeName": "blaise-gusty-data-entry-1", "nodeStatus": "Active"},
+                {"nodeName": "blaise-gusty-data-entry-2", "nodeStatus": "Active"},
             ],
             "Active": False,
             "ActiveToday": False,
@@ -68,35 +50,26 @@ def api_questionnaires_with_cati_data_stub_response() -> List[Dict[str, Any]]:
 
 def api_questionnaire_with_cati_data_stub_response() -> Dict[str, Any]:
     return {
-            "name": "DST2106X",
-            "id": "12345-12345-12345-12345-XXXXX",
-            "serverParkName": "gusty",
-            "installDate": "2021-01-01T01:01:01.99999+01:00",
-            "status": "Active",
-            "dataRecordCount": 1337,
-            "hasData": True,
-            "nodes": [
-                {
-                    "nodeName": "blaise-gusty-mgmt",
-                    "nodeStatus": "Active"
-                },
-                {
-                    "nodeName": "blaise-gusty-data-entry-1",
-                    "nodeStatus": "Active"
-                },
-                {
-                    "nodeName": "blaise-gusty-data-entry-2",
-                    "nodeStatus": "Active"
-                }
-            ],
-            "Active": True,
-            "ActiveToday": True,
-            "DeliverData": True,
-            "surveyDays": [
-                "2021-01-28T00:00:00",
-                "2021-01-29T00:00:00",
-            ],
-        }
+        "name": "DST2106X",
+        "id": "12345-12345-12345-12345-XXXXX",
+        "serverParkName": "gusty",
+        "installDate": "2021-01-01T01:01:01.99999+01:00",
+        "status": "Active",
+        "dataRecordCount": 1337,
+        "hasData": True,
+        "nodes": [
+            {"nodeName": "blaise-gusty-mgmt", "nodeStatus": "Active"},
+            {"nodeName": "blaise-gusty-data-entry-1", "nodeStatus": "Active"},
+            {"nodeName": "blaise-gusty-data-entry-2", "nodeStatus": "Active"},
+        ],
+        "Active": True,
+        "ActiveToday": True,
+        "DeliverData": True,
+        "surveyDays": [
+            "2021-01-28T00:00:00",
+            "2021-01-29T00:00:00",
+        ],
+    }
 
 
 def api_questionnaires_stub_response() -> List[Dict[str, Any]]:
@@ -110,19 +83,10 @@ def api_questionnaires_stub_response() -> List[Dict[str, Any]]:
             "dataRecordCount": 1337,
             "hasData": True,
             "nodes": [
-                {
-                    "nodeName": "blaise-gusty-mgmt",
-                    "nodeStatus": "Active"
-                },
-                {
-                    "nodeName": "blaise-gusty-data-entry-1",
-                    "nodeStatus": "Active"
-                },
-                {
-                    "nodeName": "blaise-gusty-data-entry-2",
-                    "nodeStatus": "Active"
-                }
-            ]
+                {"nodeName": "blaise-gusty-mgmt", "nodeStatus": "Active"},
+                {"nodeName": "blaise-gusty-data-entry-1", "nodeStatus": "Active"},
+                {"nodeName": "blaise-gusty-data-entry-2", "nodeStatus": "Active"},
+            ],
         },
         {
             "name": "DST2106Y",
@@ -133,19 +97,10 @@ def api_questionnaires_stub_response() -> List[Dict[str, Any]]:
             "dataRecordCount": 42,
             "hasData": True,
             "nodes": [
-                {
-                    "nodeName": "blaise-gusty-mgmt",
-                    "nodeStatus": "Active"
-                },
-                {
-                    "nodeName": "blaise-gusty-data-entry-1",
-                    "nodeStatus": "Active"
-                },
-                {
-                    "nodeName": "blaise-gusty-data-entry-2",
-                    "nodeStatus": "Active"
-                }
-            ]
+                {"nodeName": "blaise-gusty-mgmt", "nodeStatus": "Active"},
+                {"nodeName": "blaise-gusty-data-entry-1", "nodeStatus": "Active"},
+                {"nodeName": "blaise-gusty-data-entry-2", "nodeStatus": "Active"},
+            ],
         },
         {
             "name": "DST2106Z",
@@ -156,47 +111,29 @@ def api_questionnaires_stub_response() -> List[Dict[str, Any]]:
             "dataRecordCount": 999,
             "hasData": True,
             "nodes": [
-                {
-                    "nodeName": "blaise-gusty-mgmt",
-                    "nodeStatus": "Active"
-                },
-                {
-                    "nodeName": "blaise-gusty-data-entry-1",
-                    "nodeStatus": "Active"
-                },
-                {
-                    "nodeName": "blaise-gusty-data-entry-2",
-                    "nodeStatus": "Active"
-                }
-            ]
-        }
+                {"nodeName": "blaise-gusty-mgmt", "nodeStatus": "Active"},
+                {"nodeName": "blaise-gusty-data-entry-1", "nodeStatus": "Active"},
+                {"nodeName": "blaise-gusty-data-entry-2", "nodeStatus": "Active"},
+            ],
+        },
     ]
 
 
 def api_questionnaire_stub_response() -> Dict[str, Any]:
     return {
-            "name": "DST2106X",
-            "id": "12345-12345-12345-12345-XXXXX",
-            "serverParkName": "gusty",
-            "installDate": "2021-01-01T01:01:01.99999+01:00",
-            "status": "Active",
-            "dataRecordCount": 1337,
-            "hasData": True,
-            "nodes": [
-                {
-                    "nodeName": "blaise-gusty-mgmt",
-                    "nodeStatus": "Active"
-                },
-                {
-                    "nodeName": "blaise-gusty-data-entry-1",
-                    "nodeStatus": "Active"
-                },
-                {
-                    "nodeName": "blaise-gusty-data-entry-2",
-                    "nodeStatus": "Active"
-                }
-            ]
-        }
+        "name": "DST2106X",
+        "id": "12345-12345-12345-12345-XXXXX",
+        "serverParkName": "gusty",
+        "installDate": "2021-01-01T01:01:01.99999+01:00",
+        "status": "Active",
+        "dataRecordCount": 1337,
+        "hasData": True,
+        "nodes": [
+            {"nodeName": "blaise-gusty-mgmt", "nodeStatus": "Active"},
+            {"nodeName": "blaise-gusty-data-entry-1", "nodeStatus": "Active"},
+            {"nodeName": "blaise-gusty-data-entry-2", "nodeStatus": "Active"},
+        ],
+    }
 
 
 def api_questionnaire_data_response() -> Dict[str, Any]:
@@ -204,36 +141,20 @@ def api_questionnaire_data_response() -> Dict[str, Any]:
         "questionnaireName": "DST2106Z",
         "questionnaireId": "12345-12345-12345-12345-12345",
         "reportingData": [
-            {
-                "qiD.Serial_Number": "10010",
-                "qhAdmin.HOut": "110"
-            },
-            {
-                "qiD.Serial_Number": "10020",
-                "qhAdmin.HOut": "110"
-            },
-            {
-                "qiD.Serial_Number": "10030",
-                "qhAdmin.HOut": "110"
-
-            }
-        ]
+            {"qiD.Serial_Number": "10010", "qhAdmin.HOut": "110"},
+            {"qiD.Serial_Number": "10020", "qhAdmin.HOut": "110"},
+            {"qiD.Serial_Number": "10030", "qhAdmin.HOut": "110"},
+        ],
     }
 
 
 def api_install_questionnaire_response() -> Dict[str, Any]:
-    return {
-        "questionnaireFile": "DST2106Z.bpkg"
-    }
+    return {"questionnaireFile": "DST2106Z.bpkg"}
 
 
 def api_create_case_response() -> Dict[str, Any]:
-    return {
-        "caseId": "1000001"
-    }
+    return {"caseId": "1000001"}
 
 
 def api_ingest_response() -> Dict[str, Any]:
-    return {
-        "bucketFilePath": "IPS2501A.ZIP"
-    }
+    return {"bucketFilePath": "IPS2501A.ZIP"}

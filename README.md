@@ -1,32 +1,44 @@
-# Blaise REST Api python client
+# Blaise REST API Python Client
 
-This library facilitates calling the Blaise REST Api in python services. To use
-the library you need to do the following:
+A Python client for interacting with our Blaise REST API. It provides a convenient wrapper for making requests to Blaise from Python applications.
 
-### Creating new endpoints
+## Usage
 
-Add new endpoints and tests as required.
+Add the dependency to your project using Poetry, for stability, install from a published GitHub release tag:
 
-Run tests:
 ```
-poetry run python -m pytest
+poetry add git+https://github.com/ONSdigital/blaise-api-python-client.git@v1.0.2
 ```
 
-Git add, commit and push.
+Import the client and create an instance by passing in the REST API URL:
 
-### Consuming
-
-Add a dependency to poetry:
-```
-blaise-restapi = {git = "https://github.com/ONSdigital/blaise-api-python-client.git", rev = "main"}
-```
-
-Add an import statement where you wish to consume the client:
 ```
 import blaise_restapi
+
+restapi_client = blaise_restapi.Client("http://restapi-url")
+
+# Example usage
+cases = restapi_client.get_cases("server_park", "questionnaire_name")
 ```
 
-Declare and consume the client by passing the URL of the rest api:
-```
-restapi_client = blaise_restapi.Client(f"{url}")
-```
+## Running Development Tasks
+
+This project includes a `Makefile` with common development commands.
+
+-   **Format:**
+    Formats the code.
+    ```bash
+    make format
+    ```
+
+-   **Lint:**
+    Checks code quality.
+    ```bash
+    make lint
+    ```
+
+-   **Test:**
+    Executes test suite.
+    ```bash
+    make test
+    ```

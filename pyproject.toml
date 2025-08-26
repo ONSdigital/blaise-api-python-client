@@ -1,19 +1,32 @@
 [tool.poetry]
 name = "blaise_restapi"
-version = "1.0.5"
-description = "Client for calling Blaise RestAPI"
-authors = ["Blaise 5 Team"]
-packages = [
-  { include = "blaise_restapi" }
-]
+version = "0.1.0"
+package-mode = true
 
 [tool.poetry.dependencies]
-python = "^3.9"
-requests = "^2.26.0"
+python = "^3.13"
+requests = "^2.32.5"
 
-[tool.poetry.dev-dependencies]
-pytest = "^6.2.4"
-responses = "^0.13.3"
+[tool.poetry.group.dev.dependencies]
+black = "^25.1.0"
+pytest = "^8.4.1"
+responses = "^0.25.8"
+isort = "^6.0.1"
+flake8 = "^7.3.0"
+mypy = "^1.17.1"
+types-requests = "^2.32.4.20250809"
+
+[tool.isort]
+multi_line_output = "3"
+include_trailing_comma = "True"
+line_length = "88"
+
+[tool.mypy]
+python_version = "3.13"
+disallow_untyped_calls = true
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+ignore_missing_imports = true
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
