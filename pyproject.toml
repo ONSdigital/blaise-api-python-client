@@ -1,33 +1,39 @@
-[tool.poetry]
-name = "blaise_restapi"
-version = "0.1.0"
-package-mode = true
-
-[tool.poetry.dependencies]
-python = "^3.13"
-requests = "^2.32.5"
-
-[tool.poetry.group.dev.dependencies]
-black = "^25.1.0"
-pytest = "^8.4.1"
-responses = "^0.25.8"
-isort = "^6.0.1"
-flake8 = "^7.3.0"
-mypy = "^1.17.1"
-types-requests = "^2.32.4.20250809"
-
-[tool.isort]
-multi_line_output = "3"
-include_trailing_comma = "True"
-line_length = "88"
-
-[tool.mypy]
-python_version = "3.13"
-disallow_untyped_calls = true
-disallow_incomplete_defs = true
-disallow_untyped_decorators = true
-ignore_missing_imports = true
-
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+package-mode = true
+
+[project]
+name = "blaise_restapi"
+version = "0.1.0"
+requires-python = ">=3.13,<4.0"
+dependencies = [
+    "requests (>=2.32.5,<3.0.0)"
+]
+
+[dependency-groups]
+dev = [
+    "ruff (>=0.15.22)",
+    "pytest (>=8.4.1,<9.0.0)",
+    "pytest-cov (>=7.1.0)",
+    "responses (>=0.25.8,<0.26.0)",
+    "pyright (>=1.1.411)",
+    "deptry (>=0.25.1,<0.26.0)",
+    "vulture (>=2.16,<3.0)",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "PL", "C90", "SIM", "RUF", "Q"]
+
+[tool.pyright]
+include = ["blaise_restapi", "tests"]
+typeCheckingMode = "strict"
+
+[tool.pytest.ini_options]
+addopts = "--cov=. --cov-report=term-missing"
+pythonpath = ["blaise_restapi"]
+
+[tool.coverage.report]
+omit = ["tests/*"]
