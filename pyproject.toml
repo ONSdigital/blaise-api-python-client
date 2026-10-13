@@ -10,7 +10,8 @@ name = "blaise_restapi"
 version = "0.1.0"
 requires-python = ">=3.13,<4.0"
 dependencies = [
-    "requests (>=2.32.5,<3.0.0)"
+    "requests (>=2.32.5,<3.0.0)",
+    "urllib3 (>=2.5.0)"
 ]
 
 [dependency-groups]
@@ -33,6 +34,9 @@ select = ["E", "F", "I", "B", "UP", "PL", "C90", "SIM", "RUF", "Q"]
 [tool.pyright]
 include = ["blaise_restapi", "tests"]
 typeCheckingMode = "strict"
+
+[tool.vulture]
+min_confidence = 70
 
 [tool.pytest.ini_options]
 addopts = "--cov=. --cov-report=term-missing"

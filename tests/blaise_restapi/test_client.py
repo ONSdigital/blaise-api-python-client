@@ -2,6 +2,7 @@ import pytest
 import responses
 from urllib3.exceptions import HTTPError
 
+from blaise_restapi.client import Client
 from blaise_restapi.stubs.questionnaire_stubs import (
     api_create_case_response,
     api_ingest_response,
@@ -14,7 +15,7 @@ from blaise_restapi.stubs.questionnaire_stubs import (
 
 
 @responses.activate
-def test_get_all_questionnaires_with_cati_data(client):
+def test_get_all_questionnaires_with_cati_data(client: Client) -> None:
     responses.add(
         responses.GET,
         "http://localhost/api/v2/cati/questionnaires",
@@ -26,7 +27,9 @@ def test_get_all_questionnaires_with_cati_data(client):
 
 
 @responses.activate
-def test_get_all_questionnaires_with_cati_data_for_server_park(client, server_park):
+def test_get_all_questionnaires_with_cati_data_for_server_park(
+    client: Client, server_park: str
+) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/cati/serverparks/{server_park}/questionnaires",
@@ -39,8 +42,8 @@ def test_get_all_questionnaires_with_cati_data_for_server_park(client, server_pa
 
 @responses.activate
 def test_get_questionnaire_with_cati_data_for_server_park(
-    client, server_park, questionnaire_name
-):
+    client: Client, server_park: str, questionnaire_name: str
+) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/cati/serverparks/{server_park}/questionnaires/{questionnaire_name}",
@@ -54,7 +57,9 @@ def test_get_questionnaire_with_cati_data_for_server_park(
 
 
 @responses.activate
-def test_get_all_questionnaires_for_server_park(client, server_park):
+def test_get_all_questionnaires_for_server_park(
+    client: Client, server_park: str
+) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires",
@@ -66,7 +71,9 @@ def test_get_all_questionnaires_for_server_park(client, server_park):
 
 
 @responses.activate
-def test_get_questionnaire_for_server_park(client, server_park, questionnaire_name):
+def test_get_questionnaire_for_server_park(
+    client: Client, server_park: str, questionnaire_name: str
+) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}",
@@ -79,8 +86,8 @@ def test_get_questionnaire_for_server_park(client, server_park, questionnaire_na
 
 @responses.activate
 def test_questionnaire_exists_on_server_park_returns_true_if_exists(
-    client, server_park, questionnaire_name
-):
+    client: Client, server_park: str, questionnaire_name: str
+) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/exists",
@@ -93,8 +100,8 @@ def test_questionnaire_exists_on_server_park_returns_true_if_exists(
 
 @responses.activate
 def test_questionnaire_exists_on_server_park_returns_false_if_it_does_not_exist(
-    client, server_park
-):
+    client: Client, server_park: str
+) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/notfound/exists",
@@ -107,8 +114,8 @@ def test_questionnaire_exists_on_server_park_returns_false_if_it_does_not_exist(
 
 @responses.activate
 def test_get_questionnaire_name_from_id(
-    client, server_park, questionnaire_id, questionnaire_name
-):
+    client: Client, server_park: str, questionnaire_id: str, questionnaire_name: str
+) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires",
@@ -120,7 +127,9 @@ def test_get_questionnaire_name_from_id(
 
 
 @responses.activate
-def test_get_questionnaire_data(client, server_park, questionnaire_name, data_fields):
+def test_get_questionnaire_data(
+    client: Client, server_park: str, questionnaire_name: str, data_fields: list[str]
+) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/report",
@@ -133,8 +142,8 @@ def test_get_questionnaire_data(client, server_park, questionnaire_name, data_fi
 
 @responses.activate
 def test_get_questionnaire_data_with_filter(
-    client, server_park, questionnaire_name, data_fields
-):
+    client: Client, server_park: str, questionnaire_name: str, data_fields: list[str]
+) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/report",
@@ -148,7 +157,9 @@ def test_get_questionnaire_data_with_filter(
 
 
 @responses.activate
-def test_install_questionnaire(client, server_park, questionnaire_file):
+def test_install_questionnaire(
+    client: Client, server_park: str, questionnaire_file: str
+) -> None:
     responses.add(
         responses.POST,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires",
@@ -160,7 +171,9 @@ def test_install_questionnaire(client, server_park, questionnaire_file):
 
 
 @responses.activate
-def test_delete_questionnaire(client, server_park, questionnaire_name):
+def test_delete_questionnaire(
+    client: Client, server_park: str, questionnaire_name: str
+) -> None:
     responses.add(
         responses.DELETE,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}",
@@ -172,7 +185,13 @@ def test_delete_questionnaire(client, server_park, questionnaire_name):
 
 
 @responses.activate
-def test_create_case(client, server_park, questionnaire_name, case_id, field_data):
+def test_create_case(
+    client: Client,
+    server_park: str,
+    questionnaire_name: str,
+    case_id: str,
+    field_data: dict[str, str],
+) -> None:
     responses.add(
         responses.POST,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
@@ -185,8 +204,13 @@ def test_create_case(client, server_park, questionnaire_name, case_id, field_dat
 
 @responses.activate
 def test_create_multikey_case(
-    client, server_park, questionnaire_name, key_names, key_values, field_data
-):
+    client: Client,
+    server_park: str,
+    questionnaire_name: str,
+    key_names: list[str],
+    key_values: list[str],
+    field_data: dict[str, str],
+) -> None:
     responses.add(
         responses.POST,
         "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
@@ -200,7 +224,9 @@ def test_create_multikey_case(
 
 
 @responses.activate
-def test_delete_case(client, server_park, questionnaire_name, case_id):
+def test_delete_case(
+    client: Client, server_park: str, questionnaire_name: str, case_id: str
+) -> None:
     responses.add(
         responses.DELETE,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
@@ -213,8 +239,12 @@ def test_delete_case(client, server_park, questionnaire_name, case_id):
 
 @responses.activate
 def test_delete_case_with_multikey(
-    client, server_park, questionnaire_name, key_names, key_values
-):
+    client: Client,
+    server_park: str,
+    questionnaire_name: str,
+    key_names: list[str],
+    key_values: list[str],
+) -> None:
     responses.add(
         responses.DELETE,
         "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
@@ -228,7 +258,9 @@ def test_delete_case_with_multikey(
 
 
 @responses.activate
-def test_get_case(client, server_park, questionnaire_name, case_id):
+def test_get_case(
+    client: Client, server_park: str, questionnaire_name: str, case_id: str
+) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
@@ -241,8 +273,12 @@ def test_get_case(client, server_park, questionnaire_name, case_id):
 
 @responses.activate
 def test_get_multikey_case(
-    client, server_park, questionnaire_name, key_names, key_values
-):
+    client: Client,
+    server_park: str,
+    questionnaire_name: str,
+    key_names: list[str],
+    key_values: list[str],
+) -> None:
     responses.add(
         responses.GET,
         "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
@@ -257,7 +293,9 @@ def test_get_multikey_case(
 
 
 @responses.activate
-def test_get_case_when_case_not_found(client, server_park, questionnaire_name, case_id):
+def test_get_case_when_case_not_found(
+    client: Client, server_park: str, questionnaire_name: str, case_id: str
+) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
@@ -269,8 +307,12 @@ def test_get_case_when_case_not_found(client, server_park, questionnaire_name, c
 
 @responses.activate
 def test_get_multikey_case_when_case_not_found(
-    client, server_park, questionnaire_name, key_names, key_values
-):
+    client: Client,
+    server_park: str,
+    questionnaire_name: str,
+    key_names: list[str],
+    key_values: list[str],
+) -> None:
     responses.add(
         responses.GET,
         "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
@@ -281,7 +323,9 @@ def test_get_multikey_case_when_case_not_found(
 
 
 @responses.activate
-def test_get_case_when_case_errors(client, server_park, questionnaire_name, case_id):
+def test_get_case_when_case_errors(
+    client: Client, server_park: str, questionnaire_name: str, case_id: str
+) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
@@ -293,8 +337,12 @@ def test_get_case_when_case_errors(client, server_park, questionnaire_name, case
 
 @responses.activate
 def test_get_mulitkey_case_when_case_errors(
-    client, server_park, questionnaire_name, key_names, key_values
-):
+    client: Client,
+    server_park: str,
+    questionnaire_name: str,
+    key_names: list[str],
+    key_values: list[str],
+) -> None:
     responses.add(
         responses.GET,
         "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
@@ -306,8 +354,8 @@ def test_get_mulitkey_case_when_case_errors(
 
 @responses.activate
 def test_case_exists_for_questionnaire_returns_true_if_exists(
-    client, server_park, questionnaire_name, case_id
-):
+    client: Client, server_park: str, questionnaire_name: str, case_id: str
+) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}/exists",
@@ -322,8 +370,12 @@ def test_case_exists_for_questionnaire_returns_true_if_exists(
 
 @responses.activate
 def test_multikey_case_exists_for_questionnaire_returns_true_if_exists(
-    client, server_park, questionnaire_name, key_names, key_values
-):
+    client: Client,
+    server_park: str,
+    questionnaire_name: str,
+    key_names: list[str],
+    key_values: list[str],
+) -> None:
     responses.add(
         responses.GET,
         "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/exists/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
@@ -338,8 +390,8 @@ def test_multikey_case_exists_for_questionnaire_returns_true_if_exists(
 
 @responses.activate
 def test_case_exists_for_questionnaire_returns_false_if_it_does_not_exist(
-    client, server_park, questionnaire_name
-):
+    client: Client, server_park: str, questionnaire_name: str
+) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/notfound/exists",
@@ -354,8 +406,8 @@ def test_case_exists_for_questionnaire_returns_false_if_it_does_not_exist(
 
 @responses.activate
 def test_multikey_case_exists_for_questionnaire_returns_false_if_it_does_not_exist(
-    client, server_park, questionnaire_name
-):
+    client: Client, server_park: str, questionnaire_name: str
+) -> None:
     responses.add(
         responses.GET,
         "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/exists/multikey",
@@ -363,15 +415,19 @@ def test_multikey_case_exists_for_questionnaire_returns_false_if_it_does_not_exi
     )
 
     result = client.multikey_case_exists_for_questionnaire(
-        server_park, questionnaire_name, "notfound", "notfound"
+        server_park, questionnaire_name, ["notfound"], ["notfound"]
     )
     assert result is False
 
 
 @responses.activate
 def test_patch_case_data_happy_path(
-    client, server_park, questionnaire_name, case_id, update_telephone_data_fields
-):
+    client: Client,
+    server_park: str,
+    questionnaire_name: str,
+    case_id: str,
+    update_telephone_data_fields: dict[str, str],
+) -> None:
     responses.add(
         responses.PATCH,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
@@ -388,13 +444,13 @@ def test_patch_case_data_happy_path(
 
 @responses.activate
 def test_patch_multikey_case_data_happy_path(
-    client,
-    server_park,
-    questionnaire_name,
-    key_names,
-    key_values,
-    update_telephone_data_fields,
-):
+    client: Client,
+    server_park: str,
+    questionnaire_name: str,
+    key_names: list[str],
+    key_values: list[str],
+    update_telephone_data_fields: dict[str, str],
+) -> None:
     responses.add(
         responses.PATCH,
         "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
@@ -415,8 +471,12 @@ def test_patch_multikey_case_data_happy_path(
 
 @responses.activate
 def test_patch_case_data_raises_error(
-    client, server_park, questionnaire_name, case_id, update_telephone_data_fields
-):
+    client: Client,
+    server_park: str,
+    questionnaire_name: str,
+    case_id: str,
+    update_telephone_data_fields: dict[str, str],
+) -> None:
     responses.add(
         responses.PATCH,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
@@ -437,13 +497,13 @@ def test_patch_case_data_raises_error(
 
 @responses.activate
 def test_patch_multikey_case_data_raises_error(
-    client,
-    server_park,
-    questionnaire_name,
-    key_names,
-    key_values,
-    update_telephone_data_fields,
-):
+    client: Client,
+    server_park: str,
+    questionnaire_name: str,
+    key_names: list[str],
+    key_values: list[str],
+    update_telephone_data_fields: dict[str, str],
+) -> None:
     responses.add(
         responses.PATCH,
         "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
@@ -467,7 +527,9 @@ def test_patch_multikey_case_data_raises_error(
 
 
 @responses.activate
-def test_get_case_status(client, server_park, questionnaire_name):
+def test_get_case_status(
+    client: Client, server_park: str, questionnaire_name: str
+) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/status",
@@ -479,7 +541,7 @@ def test_get_case_status(client, server_park, questionnaire_name):
 
 
 @responses.activate
-def test_get_users(client):
+def test_get_users(client: Client) -> None:
     responses.add(
         responses.GET,
         "http://localhost/api/v2/users",
@@ -501,14 +563,21 @@ def test_get_users(client):
 
 
 @responses.activate
-def test_format_url_query_string(client, key_names, key_values):
+def test_format_url_query_string(
+    client: Client, key_names: list[str], key_values: list[str]
+) -> None:
     assert client.format_url_query_string(key_names, key_values) == (
         "keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001"
     )
 
 
 @responses.activate
-def test_ingest(client, server_park, questionnaire_name, field_data):
+def test_ingest(
+    client: Client,
+    server_park: str,
+    questionnaire_name: str,
+    field_data: dict[str, str],
+) -> None:
     responses.add(
         responses.POST,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/ingest",

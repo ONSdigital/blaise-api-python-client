@@ -4,7 +4,9 @@ from blaise_restapi.functions.questionnaire_functions import (
 from blaise_restapi.stubs.questionnaire_stubs import api_questionnaires_stub_response
 
 
-def test_get_questionnaire_name_from_id(questionnaire_id, questionnaire_name):
+def test_get_questionnaire_name_from_id(
+    questionnaire_id: str, questionnaire_name: str
+) -> None:
     assert (
         get_questionnaire_name_from_id(
             questionnaire_id, api_questionnaires_stub_response()
@@ -13,7 +15,7 @@ def test_get_questionnaire_name_from_id(questionnaire_id, questionnaire_name):
     )
 
 
-def test_get_questionnaire_name_from_id_not_found():
+def test_get_questionnaire_name_from_id_not_found() -> None:
     assert (
         get_questionnaire_name_from_id("not-found", api_questionnaires_stub_response())
         == ""

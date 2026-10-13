@@ -10,10 +10,12 @@ from blaise_restapi.functions.questionnaire_functions import (
 
 
 class Client:
-    def __init__(self, restapi_url):
+    def __init__(self, restapi_url: str) -> None:
         self.restapi_url = restapi_url
 
-    def format_url_query_string(self, key_names: list, key_values: list) -> str:
+    def format_url_query_string(
+        self, key_names: list[str], key_values: list[str]
+    ) -> str:
         query_string = "&".join(
             [f"keyNames={name}" for name in key_names]
             + [f"keyValues={value}" for value in key_values]
@@ -81,12 +83,10 @@ class Client:
         self,
         server_park: str,
         questionnaire_name: str,
-        data_fields: list,
+        data_fields: list[str],
         filter: str | None = None,
     ) -> dict[str, Any]:
-        data_field_params = []
-        for field in data_fields:
-            data_field_params.append(("fieldIds", field))
+        data_field_params = [("fieldIds", field) for field in data_fields]
         if filter is not None:
             data_field_params.append(("filter", filter))
         url = (
@@ -131,8 +131,8 @@ class Client:
         self,
         server_park: str,
         questionnaire_name: str,
-        key_names: list,
-        key_values: list,
+        key_names: list[str],
+        key_values: list[str],
         data_fields: dict[str, Any],
     ) -> dict[str, Any]:
         query_string = self.format_url_query_string(key_names, key_values)
@@ -157,8 +157,8 @@ class Client:
         self,
         server_park: str,
         questionnaire_name: str,
-        key_names: list,
-        key_values: list,
+        key_names: list[str],
+        key_values: list[str],
     ) -> dict[str, Any]:
         query_string = self.format_url_query_string(key_names, key_values)
         url = (
@@ -186,8 +186,8 @@ class Client:
         self,
         server_park: str,
         questionnaire_name: str,
-        key_names: list,
-        key_values: list,
+        key_names: list[str],
+        key_values: list[str],
     ) -> dict[str, Any]:
         query_string = self.format_url_query_string(key_names, key_values)
         url = (
@@ -215,8 +215,8 @@ class Client:
         self,
         server_park: str,
         questionnaire_name: str,
-        key_names: list,
-        key_values: list,
+        key_names: list[str],
+        key_values: list[str],
     ) -> bool:
         query_string = self.format_url_query_string(key_names, key_values)
         url = (
@@ -227,7 +227,11 @@ class Client:
         return response.json()
 
     def patch_case_data(
-        self, server_park: str, questionnaire_name: str, case_id: str, data_fields: dict
+        self,
+        server_park: str,
+        questionnaire_name: str,
+        case_id: str,
+        data_fields: dict[str, Any],
     ) -> None:
         url = (
             f"{self.restapi_url}/api/v2/serverparks/{server_park}/"
@@ -245,9 +249,9 @@ class Client:
         self,
         server_park: str,
         questionnaire_name: str,
-        key_names: list,
-        key_values: list,
-        data_fields: dict,
+        key_names: list[str],
+        key_values: list[str],
+        data_fields: dict[str, Any],
     ) -> None:
         query_string = self.format_url_query_string(key_names, key_values)
         url = (
