@@ -2,14 +2,12 @@ import pytest
 import responses
 from urllib3.exceptions import HTTPError
 
-from blaise_restapi.client import Client
 from blaise_restapi.stubs.questionnaire_stubs import (
     api_create_case_response,
     api_ingest_response,
     api_install_questionnaire_response,
     api_questionnaire_data_response,
     api_questionnaire_stub_response,
-    api_questionnaire_with_cati_data_stub_response,
     api_questionnaires_stub_response,
     api_questionnaires_with_cati_data_stub_response,
 )
@@ -19,13 +17,12 @@ from blaise_restapi.stubs.questionnaire_stubs import (
 def test_get_all_questionnaires_with_cati_data(client):
     responses.add(
         responses.GET,
-        f"http://localhost/api/v2/cati/questionnaires",
+        "http://localhost/api/v2/cati/questionnaires",
         json=api_questionnaires_with_cati_data_stub_response(),
     )
 
     result = client.get_all_questionnaires_with_cati_data()
     assert result == api_questionnaires_with_cati_data_stub_response()
-    assert len(result) == 2
 
 
 @responses.activate
@@ -38,7 +35,6 @@ def test_get_all_questionnaires_with_cati_data_for_server_park(client, server_pa
 
     result = client.get_all_questionnaires_with_cati_data_for_server_park(server_park)
     assert result == api_questionnaires_with_cati_data_stub_response()
-    assert len(result) == 2
 
 
 @responses.activate
@@ -67,7 +63,6 @@ def test_get_all_questionnaires_for_server_park(client, server_park):
 
     result = client.get_all_questionnaires_for_server_park(server_park)
     assert result == api_questionnaires_stub_response()
-    assert len(result) == 3
 
 
 @responses.activate
@@ -194,7 +189,7 @@ def test_create_multikey_case(
 ):
     responses.add(
         responses.POST,
-        f"http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
+        "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
         json=api_create_case_response(),
     )
 
@@ -250,7 +245,7 @@ def test_get_multikey_case(
 ):
     responses.add(
         responses.GET,
-        f"http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
+        "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
         json={"fieldData": {}},
         status=200,
     )
@@ -278,7 +273,7 @@ def test_get_multikey_case_when_case_not_found(
 ):
     responses.add(
         responses.GET,
-        f"http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
+        "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
         status=404,
     )
     with pytest.raises(HTTPError):
@@ -302,7 +297,7 @@ def test_get_mulitkey_case_when_case_errors(
 ):
     responses.add(
         responses.GET,
-        f"http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
+        "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
         status=500,
     )
     with pytest.raises(HTTPError):
@@ -331,7 +326,7 @@ def test_multikey_case_exists_for_questionnaire_returns_true_if_exists(
 ):
     responses.add(
         responses.GET,
-        f"http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/exists/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
+        "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/exists/multikey?keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001",
         json=True,
     )
 
@@ -363,7 +358,7 @@ def test_multikey_case_exists_for_questionnaire_returns_false_if_it_does_not_exi
 ):
     responses.add(
         responses.GET,
-        f"http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/exists/multikey",
+        "http://localhost/api/v2/serverparks/gusty/questionnaires/DST2106Y/cases/exists/multikey",
         json=False,
     )
 
@@ -435,7 +430,8 @@ def test_patch_case_data_raises_error(
 
     assert (
         str(err.value)
-        == "Failed to patch 1000001 with {'qDataBag.TelNo': '07000 000 01'} for questionnaire DST2106Y: 500 status code"
+        == "Failed to patch 1000001 with {'qDataBag.TelNo': '07000 000 01'} "
+        "for questionnaire DST2106Y: 500 status code"
     )
 
 
@@ -465,7 +461,8 @@ def test_patch_multikey_case_data_raises_error(
 
     assert (
         str(err.value)
-        == "Failed to patch 1000001 with {'qDataBag.TelNo': '07000 000 01'} for questionnaire DST2106Y: 500 status code"
+        == "Failed to patch 1000001 with {'qDataBag.TelNo': '07000 000 01'} "
+        "for questionnaire DST2106Y: 500 status code"
     )
 
 
@@ -485,7 +482,7 @@ def test_get_case_status(client, server_park, questionnaire_name):
 def test_get_users(client):
     responses.add(
         responses.GET,
-        f"http://localhost/api/v2/users",
+        "http://localhost/api/v2/users",
         json={
             "name": "rich",
             "role": "DST",
@@ -521,4 +518,4 @@ def test_ingest(client, server_park, questionnaire_name, field_data):
     result = client.get_ingest(server_park, questionnaire_name, field_data)
     assert result == api_ingest_response()
 
-    # f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/ingest",
+    # f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/ingest",  # noqa: E501
