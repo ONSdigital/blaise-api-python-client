@@ -19,12 +19,12 @@ A Python client for interacting with our Blaise REST API. It provides a convenie
 2. Import the client and create an instance by passing in the REST API URL:
 
    ```python
-    import blaise_restapi
-
-    restapi_client = blaise_restapi.Client("http://restapi-url")
-
-    # Example usage
-    cases = restapi_client.get_cases("server_park", "questionnaire_name")
+   import blaise_restapi
+   
+   restapi_client = blaise_restapi.Client("http://restapi-url")
+   
+   # Example usage
+   case = restapi_client.get_case("server_park", "questionnaire_name", "case_id")
    ```
 
 ## Development Setup
