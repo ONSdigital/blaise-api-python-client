@@ -27,9 +27,7 @@ def test_get_all_questionnaires_with_cati_data(client: Client) -> None:
 
 
 @responses.activate
-def test_get_all_questionnaires_with_cati_data_for_server_park(
-    client: Client, server_park: str
-) -> None:
+def test_get_all_questionnaires_with_cati_data_for_server_park(client: Client, server_park: str) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/cati/serverparks/{server_park}/questionnaires",
@@ -50,16 +48,12 @@ def test_get_questionnaire_with_cati_data_for_server_park(
         json=api_questionnaires_with_cati_data_stub_response(),
     )
 
-    result = client.get_questionnaire_with_cati_data_for_server_park(
-        server_park, questionnaire_name
-    )
+    result = client.get_questionnaire_with_cati_data_for_server_park(server_park, questionnaire_name)
     assert result == api_questionnaires_with_cati_data_stub_response()
 
 
 @responses.activate
-def test_get_all_questionnaires_for_server_park(
-    client: Client, server_park: str
-) -> None:
+def test_get_all_questionnaires_for_server_park(client: Client, server_park: str) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires",
@@ -71,9 +65,7 @@ def test_get_all_questionnaires_for_server_park(
 
 
 @responses.activate
-def test_get_questionnaire_for_server_park(
-    client: Client, server_park: str, questionnaire_name: str
-) -> None:
+def test_get_questionnaire_for_server_park(client: Client, server_park: str, questionnaire_name: str) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}",
@@ -150,16 +142,12 @@ def test_get_questionnaire_data_with_filter(
         json=api_questionnaire_data_response(),
     )
 
-    result = client.get_questionnaire_data(
-        server_park, questionnaire_name, data_fields, "ID=2"
-    )
+    result = client.get_questionnaire_data(server_park, questionnaire_name, data_fields, "ID=2")
     assert result == api_questionnaire_data_response()
 
 
 @responses.activate
-def test_install_questionnaire(
-    client: Client, server_park: str, questionnaire_file: str
-) -> None:
+def test_install_questionnaire(client: Client, server_park: str, questionnaire_file: str) -> None:
     responses.add(
         responses.POST,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires",
@@ -171,9 +159,7 @@ def test_install_questionnaire(
 
 
 @responses.activate
-def test_delete_questionnaire(
-    client: Client, server_park: str, questionnaire_name: str
-) -> None:
+def test_delete_questionnaire(client: Client, server_park: str, questionnaire_name: str) -> None:
     responses.add(
         responses.DELETE,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}",
@@ -217,16 +203,12 @@ def test_create_multikey_case(
         json=api_create_case_response(),
     )
 
-    result = client.create_multikey_case(
-        server_park, questionnaire_name, key_names, key_values, field_data
-    )
+    result = client.create_multikey_case(server_park, questionnaire_name, key_names, key_values, field_data)
     assert result == api_create_case_response()
 
 
 @responses.activate
-def test_delete_case(
-    client: Client, server_park: str, questionnaire_name: str, case_id: str
-) -> None:
+def test_delete_case(client: Client, server_park: str, questionnaire_name: str, case_id: str) -> None:
     responses.add(
         responses.DELETE,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
@@ -251,16 +233,12 @@ def test_delete_case_with_multikey(
         json={},
     )
 
-    result = client.delete_multikey_case(
-        server_park, questionnaire_name, key_names, key_values
-    )
+    result = client.delete_multikey_case(server_park, questionnaire_name, key_names, key_values)
     assert result == {}
 
 
 @responses.activate
-def test_get_case(
-    client: Client, server_park: str, questionnaire_name: str, case_id: str
-) -> None:
+def test_get_case(client: Client, server_park: str, questionnaire_name: str, case_id: str) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
@@ -286,16 +264,12 @@ def test_get_multikey_case(
         status=200,
     )
 
-    result = client.get_multikey_case(
-        server_park, questionnaire_name, key_names, key_values
-    )
+    result = client.get_multikey_case(server_park, questionnaire_name, key_names, key_values)
     assert result == {"fieldData": {}}
 
 
 @responses.activate
-def test_get_case_when_case_not_found(
-    client: Client, server_park: str, questionnaire_name: str, case_id: str
-) -> None:
+def test_get_case_when_case_not_found(client: Client, server_park: str, questionnaire_name: str, case_id: str) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
@@ -323,9 +297,7 @@ def test_get_multikey_case_when_case_not_found(
 
 
 @responses.activate
-def test_get_case_when_case_errors(
-    client: Client, server_park: str, questionnaire_name: str, case_id: str
-) -> None:
+def test_get_case_when_case_errors(client: Client, server_park: str, questionnaire_name: str, case_id: str) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/{case_id}",
@@ -362,9 +334,7 @@ def test_case_exists_for_questionnaire_returns_true_if_exists(
         json=True,
     )
 
-    result = client.case_exists_for_questionnaire(
-        server_park, questionnaire_name, case_id
-    )
+    result = client.case_exists_for_questionnaire(server_park, questionnaire_name, case_id)
     assert result is True
 
 
@@ -382,9 +352,7 @@ def test_multikey_case_exists_for_questionnaire_returns_true_if_exists(
         json=True,
     )
 
-    result = client.multikey_case_exists_for_questionnaire(
-        server_park, questionnaire_name, key_names, key_values
-    )
+    result = client.multikey_case_exists_for_questionnaire(server_park, questionnaire_name, key_names, key_values)
     assert result is True
 
 
@@ -398,9 +366,7 @@ def test_case_exists_for_questionnaire_returns_false_if_it_does_not_exist(
         json=False,
     )
 
-    result = client.case_exists_for_questionnaire(
-        server_park, questionnaire_name, "notfound"
-    )
+    result = client.case_exists_for_questionnaire(server_park, questionnaire_name, "notfound")
     assert result is False
 
 
@@ -414,9 +380,7 @@ def test_multikey_case_exists_for_questionnaire_returns_false_if_it_does_not_exi
         json=False,
     )
 
-    result = client.multikey_case_exists_for_questionnaire(
-        server_park, questionnaire_name, ["notfound"], ["notfound"]
-    )
+    result = client.multikey_case_exists_for_questionnaire(server_park, questionnaire_name, ["notfound"], ["notfound"])
     assert result is False
 
 
@@ -434,12 +398,7 @@ def test_patch_case_data_happy_path(
         json={},
     )
 
-    assert (
-        client.patch_case_data(
-            server_park, questionnaire_name, case_id, update_telephone_data_fields
-        )
-        is None
-    )
+    assert client.patch_case_data(server_park, questionnaire_name, case_id, update_telephone_data_fields) is None
 
 
 @responses.activate
@@ -484,13 +443,10 @@ def test_patch_case_data_raises_error(
     )
 
     with pytest.raises(HTTPError) as err:
-        client.patch_case_data(
-            server_park, questionnaire_name, case_id, update_telephone_data_fields
-        )
+        client.patch_case_data(server_park, questionnaire_name, case_id, update_telephone_data_fields)
 
     assert (
-        str(err.value)
-        == "Failed to patch 1000001 with {'qDataBag.TelNo': '07000 000 01'} "
+        str(err.value) == "Failed to patch 1000001 with {'qDataBag.TelNo': '07000 000 01'} "
         "for questionnaire DST2106Y: 500 status code"
     )
 
@@ -520,16 +476,13 @@ def test_patch_multikey_case_data_raises_error(
         )
 
     assert (
-        str(err.value)
-        == "Failed to patch 1000001 with {'qDataBag.TelNo': '07000 000 01'} "
+        str(err.value) == "Failed to patch 1000001 with {'qDataBag.TelNo': '07000 000 01'} "
         "for questionnaire DST2106Y: 500 status code"
     )
 
 
 @responses.activate
-def test_get_case_status(
-    client: Client, server_park: str, questionnaire_name: str
-) -> None:
+def test_get_case_status(client: Client, server_park: str, questionnaire_name: str) -> None:
     responses.add(
         responses.GET,
         f"http://localhost/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/cases/status",
@@ -563,9 +516,7 @@ def test_get_users(client: Client) -> None:
 
 
 @responses.activate
-def test_format_url_query_string(
-    client: Client, key_names: list[str], key_values: list[str]
-) -> None:
+def test_format_url_query_string(client: Client, key_names: list[str], key_values: list[str]) -> None:
     assert client.format_url_query_string(key_names, key_values) == (
         "keyNames=MainSurveyID&keyNames=ID&keyValues=12345-12345-12345-12345&keyValues=1000001"
     )
@@ -586,5 +537,3 @@ def test_ingest(
 
     result = client.get_ingest(server_park, questionnaire_name, field_data)
     assert result == api_ingest_response()
-
-    # f"{self.restapi_url}/api/v2/serverparks/{server_park}/questionnaires/{questionnaire_name}/ingest",  # noqa: E501
