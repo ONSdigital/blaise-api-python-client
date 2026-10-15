@@ -1,7 +1,7 @@
-from typing import Any, Dict, List
+from typing import Any
 
 
-def api_questionnaires_with_cati_data_stub_response() -> List[Dict[str, Any]]:
+def api_questionnaires_with_cati_data_stub_response() -> list[dict[str, Any]]:
     return [
         {
             "name": "DST2106X",
@@ -48,7 +48,7 @@ def api_questionnaires_with_cati_data_stub_response() -> List[Dict[str, Any]]:
     ]
 
 
-def api_questionnaire_with_cati_data_stub_response() -> Dict[str, Any]:
+def api_questionnaire_with_cati_data_stub_response() -> dict[str, Any]:
     return {
         "name": "DST2106X",
         "id": "12345-12345-12345-12345-XXXXX",
@@ -72,7 +72,7 @@ def api_questionnaire_with_cati_data_stub_response() -> Dict[str, Any]:
     }
 
 
-def api_questionnaires_stub_response() -> List[Dict[str, Any]]:
+def api_questionnaires_stub_response() -> list[dict[str, Any]]:
     return [
         {
             "name": "DST2106X",
@@ -119,7 +119,7 @@ def api_questionnaires_stub_response() -> List[Dict[str, Any]]:
     ]
 
 
-def api_questionnaire_stub_response() -> Dict[str, Any]:
+def api_questionnaire_stub_response() -> dict[str, Any]:
     return {
         "name": "DST2106X",
         "id": "12345-12345-12345-12345-XXXXX",
@@ -136,7 +136,7 @@ def api_questionnaire_stub_response() -> Dict[str, Any]:
     }
 
 
-def api_questionnaire_data_response() -> Dict[str, Any]:
+def api_questionnaire_data_response() -> dict[str, Any]:
     return {
         "questionnaireName": "DST2106Z",
         "questionnaireId": "12345-12345-12345-12345-12345",
@@ -148,13 +148,13 @@ def api_questionnaire_data_response() -> Dict[str, Any]:
     }
 
 
-def api_install_questionnaire_response() -> Dict[str, Any]:
+def api_install_questionnaire_response() -> dict[str, Any]:
     return {"questionnaireFile": "DST2106Z.bpkg"}
 
 
-def api_create_case_response() -> Dict[str, Any]:
+def api_create_case_response() -> dict[str, Any]:
     return {"caseId": "1000001"}
 
 
-def api_ingest_response() -> Dict[str, Any]:
+def api_ingest_response() -> dict[str, Any]:
     return {"bucketFilePath": "IPS2501A.ZIP"}
